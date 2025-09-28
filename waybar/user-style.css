@@ -1,0 +1,4 @@
+/* User custom styles */
+window#waybar {
+    background-color: transparent;
+}
