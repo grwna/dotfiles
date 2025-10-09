@@ -123,6 +123,7 @@ source ~/Ricing/zsh/functions.rice
 # ALIASES
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
+alias logi='nvim ~/info/installed_packages.log'
 
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'
 alias cghidra='rm ~/File-ghidra/*'
@@ -133,5 +134,7 @@ alias shell-temp='cat ~/Github/random-tools/code-templates/pwn-shell-template.s'
 alias off-temp='cat ~/Github/random-tools/code-templates/offset-brute-force-pwn.py'
 
 # STARTUP
-eval $(ssh-agent -s)
-eval $(keychain --eval --quiet grwna-rsa)
+eval "$(keychain --eval --quiet --noask --agents ssh grwna-rsa)"
+
+# INSTALLATIONS
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
