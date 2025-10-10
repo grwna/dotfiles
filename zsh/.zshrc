@@ -70,7 +70,13 @@ ZSH_THEME="amuse"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(
+    git
+    zoxide
+    history-substring-search
+    fzf
+    sudo
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,5 +114,9 @@ source $ZSH/oh-my-zsh.sh
 # ==================================
 noglob eval $(keychain --eval --quiet grwna-rsa)
 
-alias ebs="vim ~/config/zsh/.zshrc"
-alias sbs="source ~/config/zsh/.zshrc"
+alias ebs="nvim ~/.config/zsh/.zshrc"
+alias sbs="source ~/.config/zsh/.zshrc"
+alias vbs="cat ~/.config/zsh/.zshrc"
+
+# SCRIPT FILES
+source ~/Grwna/Ricing/Scripts/install-log.sh
