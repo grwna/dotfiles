@@ -134,7 +134,10 @@ alias shell-temp='cat ~/Github/random-tools/code-templates/pwn-shell-template.s'
 alias off-temp='cat ~/Github/random-tools/code-templates/offset-brute-force-pwn.py'
 
 # STARTUP
-eval "$(keychain --eval --quiet --noask --agents ssh grwna-rsa)"
+# eval $(ssh-agent -k)
+# eval $(ssh-agent -s)
+# eval $(keychain --eval --quiet grwna-rsa)
+eval $(keychain --eval --quiet grwna-rsa)
 
 # INSTALLATIONS
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
