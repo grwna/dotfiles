@@ -17,7 +17,7 @@ install_config() {
     fi
 
     # Create parent directory if not exist
-    mkdir -p "($dirname "$dest")"
+    mkdir -p "$(dirname "$dest")"
 
     # Create symlink
     ln -sv "$source" "$dest"
@@ -25,21 +25,22 @@ install_config() {
 }
 
 install_zsh() {
-    install_config "Zsh" "$DIR/zsh" "$HOME/.config"
+    install_config "Zsh" "$DIR/zsh" "$HOME/.config/zsh"
 }
 
 install_nvim() {
-    install_config "Neovim" "$DIR/nvim" "$HOME/.config"
+    install_config "Neovim" "$DIR/nvim" "$HOME/.config/nvim"
 }
 
 install_hypr() {
-    install_config "Hyprland" "$DIR/hypr" "$HOME/.config"
+    install_config "Hyprland" "$DIR/hypr" "$HOME/.config/hypr"
 }
 
 install_waybar() {
-    install_config "Waybar" "$DIR/waybar" "$HOME/.config"
+    install_config "Waybar" "$DIR/waybar" "$HOME/.config/waybar"
 }
 
+# These two were already correct because they specified the full path
 install_zsh-simple() {
     install_config "Zsh-simple" "$DIR/zsh-simple/.zshrc" "$HOME/.zshrc"
 }
