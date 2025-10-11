@@ -57,7 +57,7 @@ if [ -z "$1" ]; then
 fi
 
 echo "This script will install the following components: $@"
-echo "Installation is one with symlink. If the directory exists in your config folder, they will be deleted.$@"
+echo "Installation is one with symlink. If the directory exists in your config folder, they will be deleted."
 read -p "Do you want to proceed with the installation? [Y/n] " confirm
 
 # Check the user's response
