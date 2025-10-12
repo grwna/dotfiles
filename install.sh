@@ -49,6 +49,14 @@ install_bash() {
     install_config "Bash" "$DIR/bash/.bashrc" "$HOME/.bashrc"
 }
 
+install_kitty() {
+    install_config "Kitty" "$DIR/kitty" "$HOME/.config/kitty"
+}
+
+install_fastfetch() {
+   install_config "Fastfetch" "$DIR/fastfetch" "$HOME/.config/fastfetch"
+}
+
 # If no arguments are provided, print usage
 if [ -z "$1" ]; then
     echo "Usage: ./install.sh <component> [component...] or ./install.sh all"
@@ -94,6 +102,12 @@ for component in "$@"; do
     bash)
         install_bash
         ;;
+    kitty)
+        install_kitty
+        ;;
+    fastfetch)
+        install_fastfetch
+        ;;
     all)
         install_zsh
         install_nvim
@@ -101,6 +115,8 @@ for component in "$@"; do
         install_waybar
         install_zsh-simple
         install_bash
+        install_kitty
+        install_fastfetch
         ;;
     *)
         echo "Unknown component: $component"
