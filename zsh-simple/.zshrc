@@ -133,11 +133,23 @@ alias fuzz-temp='cat ~/Github/random-tools/code-templates/pwn-fuzzy-template.py'
 alias shell-temp='cat ~/Github/random-tools/code-templates/pwn-shell-template.s'
 alias off-temp='cat ~/Github/random-tools/code-templates/offset-brute-force-pwn.py'
 
+alias python='python3'
+alias pyhton='python3'
+
+alias lg='lazygit'
+
+alias zrm='rm *Zone.Identifier'
+alias rm='rm -i'
 # STARTUP
 # eval $(ssh-agent -k)
 # eval $(ssh-agent -s)
 # eval $(keychain --eval --quiet grwna-rsa)
 eval $(keychain --eval --quiet grwna-rsa)
+# Fastfetch on new terminal
+if [[ $- == *i* ]]; then
+    fastfetch
+fi
 
 # INSTALLATIONS
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export ANI_CLI_PLAYER=mpv
