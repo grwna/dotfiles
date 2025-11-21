@@ -1,7 +1,6 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -72,7 +71,7 @@ ZSH_CUSTOM=~/Ricing/zsh
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
+#    git
     zoxide
     sudo
     history-substring-search
@@ -137,6 +136,7 @@ alias python='python3'
 alias pyhton='python3'
 
 alias lg='lazygit'
+alias nazi='cat ~/.home/principle.txt'
 
 alias zrm='rm *Zone.Identifier'
 alias rm='rm -i'
@@ -152,4 +152,6 @@ fi
 
 # INSTALLATIONS
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
+export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
+
