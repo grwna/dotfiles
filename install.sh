@@ -28,6 +28,10 @@ install_zsh() {
     install_config "Zsh" "$DIR/zsh" "$HOME/.config/zsh"
 }
 
+install_zsh_simple() {
+    install_config "Zsh-simple" "$DIR/zsh-simple/.zshrc" "$HOME/.zshrc"
+}
+
 install_nvim() {
     install_config "Neovim" "$DIR/nvim" "$HOME/.config/nvim"
 }
@@ -54,7 +58,7 @@ install_kitty() {
 }
 
 install_fastfetch() {
-   install_config "Fastfetch" "$DIR/fastfetch" "$HOME/.config/fastfetch"
+    install_config "Fastfetch" "$DIR/fastfetch" "$HOME/.config/fastfetch"
 }
 
 # If no arguments are provided, print usage

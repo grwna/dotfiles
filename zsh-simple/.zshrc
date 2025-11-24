@@ -124,6 +124,8 @@ alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
 alias logi='nvim ~/info/installed_packages.log'
 
+alias lg='lazygit'
+
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'
 alias cghidra='rm ~/File-ghidra/*'
 

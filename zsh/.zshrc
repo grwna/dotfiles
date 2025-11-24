@@ -118,5 +118,12 @@ alias ebs="nvim ~/.config/zsh/.zshrc"
 alias sbs="source ~/.config/zsh/.zshrc"
 alias vbs="cat ~/.config/zsh/.zshrc"
 
+alias nz='cat ~/.home/principle.txt'
+alias lg='lazygit'
+alias logi='nvim ~/.local/share/installed_packages.log'
+
 # SCRIPT FILES
 source ~/Grwna/Ricing/Scripts/install-log.sh
+
+# INSTALLATION
+export PATH=~/.npm-global/bin:$PATH
