@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -8,7 +15,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="amuse"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -113,6 +120,14 @@ source $ZSH/oh-my-zsh.sh
 #               CUSTOM MOD
 # ======================================
 
+# VIM
+bindkey -v
+bindkey -M viins 'kj' vi-cmd-mode
+bindkey -M vicmd 'H' vi-first-non-blank
+bindkey -M vicmd 'L' vi-end-of-line
+bindkey -M visual 'mn' deactivate-region
+export KEYTIMEOUT=15
+
 # CUSTOM SCRIPTS
 source ~/Script/install-log.sh
 
@@ -138,10 +153,12 @@ alias python='python3'
 alias pyhton='python3'
 
 alias lg='lazygit'
+alias wex='explorer.exe'
 alias nazi='cat ~/.home/principle.txt'
 
-alias zrm='rm *Zone.Identifier'
+alias zrm='find . -type f -name "*Zone.Identifier" -print -delete'
 alias rm='rm -i'
+alias cls='clear'
 # STARTUP
 # eval $(ssh-agent -k)
 # eval $(ssh-agent -s)
@@ -157,3 +174,12 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+[ -s "/home/grwna/.bun/_bun" ] && source "/home/grwna/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
