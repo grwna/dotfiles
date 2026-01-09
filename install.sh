@@ -36,6 +36,11 @@ install_nvim() {
     install_config "Neovim" "$DIR/nvim" "$HOME/.config/nvim"
 }
 
+install_cleanvim() {
+    install_config "Clean Neovim" "$DIR/cleanvim" "$HOME/.config/cleanvim"
+    echo "Cleanvim installed, make sure to add 'alias cvim='NVIM_APPNAME=cleanvim nvim' to your shell configurations"
+}
+
 install_hypr() {
     install_config "Hyprland" "$DIR/hypr" "$HOME/.config/hypr"
 }
@@ -59,6 +64,10 @@ install_kitty() {
 
 install_fastfetch() {
     install_config "Fastfetch" "$DIR/fastfetch" "$HOME/.config/fastfetch"
+}
+
+install_tmux() {
+    install_config "TMUX" "$DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
 }
 
 # If no arguments are provided, print usage
@@ -94,6 +103,9 @@ for component in "$@"; do
     nvim)
         install_nvim
         ;;
+    cleanvim)
+        install_cleanvim
+        ;;
     hypr)
         install_hypr
         ;;
@@ -102,6 +114,9 @@ for component in "$@"; do
         ;;
     zsh-simple)
         install_zsh_simple
+        ;;
+    tmux)
+        install_tmux
         ;;
     bash)
         install_bash
@@ -121,6 +136,7 @@ for component in "$@"; do
         install_bash
         install_kitty
         install_fastfetch
+        install_tmux
         ;;
     *)
         echo "Unknown component: $component"
