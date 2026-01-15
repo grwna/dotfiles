@@ -1,6 +1,18 @@
+# STARTUP
+# eval $(ssh-agent -k)
+# eval $(ssh-agent -s)
+# eval $(keychain --eval --quiet grwna-rsa)
+eval $(keychain --eval --quiet grwna-rsa)
+# Fastfetch on new terminal
+alias fastfetch='fastfetch --logo-color-1 "$(shuf -n 1 -e red green yellow blue magenta cyan)"'
+if [[ $- == *i* ]]; then
+    fastfetch
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+typeset -U path PATH
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -138,8 +150,7 @@ source ~/Ricing/zsh/functions.rice
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
 alias logi='nvim ~/info/installed_packages.log'
-
-alias lg='lazygit'
+alias svim='cvim ~/.config/cleanvim'
 
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'
 alias cghidra='rm ~/File-ghidra/*'
@@ -152,27 +163,26 @@ alias off-temp='cat ~/Github/random-tools/code-templates/offset-brute-force-pwn.
 alias python='python3'
 alias pyhton='python3'
 
-alias lg='lazygit'
-alias wex='explorer.exe'
 alias nazi='cat ~/.home/principle.txt'
 
 alias zrm='find . -type f -name "*Zone.Identifier" -print -delete'
 alias rm='rm -i'
 alias cls='clear'
-# STARTUP
-# eval $(ssh-agent -k)
-# eval $(ssh-agent -s)
-# eval $(keychain --eval --quiet grwna-rsa)
-eval $(keychain --eval --quiet grwna-rsa)
-# Fastfetch on new terminal
-if [[ $- == *i* ]]; then
-    fastfetch
-fi
+
+# application run
+alias lg='lazygit'
+alias wex='explorer.exe'
+alias agy='antigravity'
+alias cvim='NVIM_APPNAME=cleanvim nvim'
+alias ff='fastfetch'
+
 
 # INSTALLATIONS
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
+export PATH="$PATH:/home/grwna/Script"
+export BROWSER=wslview
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -183,3 +193,5 @@ export ANI_CLI_PLAYER=mpv
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:/snap/bin"
+
