@@ -1,0 +1,11 @@
+A collection of interesting plugins that i might want to check out in the future:
+- telescope-ui-select.nvim - makes neovim's UI look like telescope's UI 
+- nvim-navic (breadcrumbs)
+- trouble.nvim (error sidebar)
+- 
+
+extra
+- configure lualine (rice)
+- configure snacks's dashboard (look at https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md)
+    you can add images or ascii art to it bruhq:j
+- create custom todo-comments buffer picker for snacks 

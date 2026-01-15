@@ -10,7 +10,7 @@ return {
                     light = "lotus",
                 },
             })
-           vim.cmd("colorscheme kanagawa")
+           -- vim.cmd("colorscheme kanagawa")
         end,
     },
     {

@@ -43,3 +43,5 @@ require("lazy").setup({
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
+
+require("config.keybinds") -- has to be added after plugins are loaded

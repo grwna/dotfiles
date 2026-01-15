@@ -23,3 +23,11 @@ if vim.fn.has("wsl") == 1 then
 end
 
 -- vim.opt.clipboard = "unnamedplus"
+
+-- Fix Browser timeout issue
+if vim.fn.has("wsl")==1 then
+    vim.ui.open = function (path)
+        vim.fn.jobstart({"wslview", path}, {detach = true})
+    end
+end
+

@@ -6,3 +6,21 @@
 --
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+------------------------------
+--- DISABLE NETRW HIJACKING
+------------------------------
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function (data)
+        local directory = vim.fn.isdirectory(data.file) == 1
+        if directory then
+            vim.cmd("bwipeout")
+            vim.cmd("enew")
+            vim.cmd("cd " .. data.file)
+        end
+    end
+
+})

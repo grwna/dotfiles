@@ -1,10 +1,13 @@
+-- trash is located at /home/grwna/.local/share/cleanvim/mini.files/trash
 return {
     {
         "nvim-mini/mini.files",
         version = false,
         lazy = false,
         keys = {
-            {"<leader>e", function() require("mini.files").open() end,}
+            {"<leader>e", function() require("mini.files").open() end, desc = "Open mini.files explorer"},
+            {"<leader>E", function() require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
+                end, desc = "Open mini.files explorer to current buffer"}
         },
         opts = {
             windows = {
@@ -15,7 +18,7 @@ return {
             },
 
             options = {
-                use_as_default_explorer = true,
+                use_as_default_explorer = false,
                 permanent_delete = false,
             },
             -- default
@@ -35,5 +38,13 @@ return {
                 trim_right  = '>',
             },
         },
+
+        config = function (_, opts)
+            require("mini.files").setup(opts)
+            vim.api.nvim_create_user_command("Trash", function ()
+                local trash = vim.fn.stdpath("data") .. "/mini.files/trash"
+                print(trash)
+            end, {})
+        end
     }
 }
