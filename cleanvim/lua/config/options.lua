@@ -9,6 +9,7 @@ opt.expandtab = true
 opt.smartindent = true
 
 opt.clipboard = ""
+opt.autoread = true
 
 -- line numbering
 opt.number = true 

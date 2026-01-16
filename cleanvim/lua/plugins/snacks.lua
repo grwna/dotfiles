@@ -7,7 +7,7 @@ return {
     {
         "folke/snacks.nvim",
         priority = 1000,
-        lazy = false,
+        event = "VeryLazy",
         ---@type snacks.Config
         opts = {
             -- core utillities
@@ -55,6 +55,7 @@ return {
             -- Extra Keys
             -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
             { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+            { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete All Other Buffer" },
             { "<leader>lg", function() Snacks.lazygit() end, desc = "Open Lazygit" },
 
           }

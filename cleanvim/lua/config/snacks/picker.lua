@@ -37,7 +37,6 @@ return {
   -- Per-Source Configuration
   sources = {
     -- dropdowns
-    buffers = picker_dropdown,
     files = picker_dropdown,
     colorschemes = picker_dropdown,
     git_branches = picker_dropdown,
@@ -60,6 +59,7 @@ return {
     man = picker_right,
     help = picker_right,
     todo_comments = picker_right,
+    buffers = {layout = {preset = "left"}},
 
     autocmds = picker_select,
     command_history = picker_select,

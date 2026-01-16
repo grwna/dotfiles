@@ -3,7 +3,9 @@
 
 -- Basic keymappings (can be used on any neovim installation with no plugins)
 vim.keymap.set("i", "kj", "<Esc>", { desc = "Exit Insert Mode" })
+vim.keymap.set("i", "KJ", "<Esc>", { desc = "Exit Insert Mode" })
 vim.keymap.set("v", "mn", "<Esc>", { desc = "Exit Visual Mode" })
+vim.keymap.set("v", "MN", "<Esc>", { desc = "Exit Visual Mode" })
 
 vim.keymap.set("n", "H", "^", { noremap = true, silent = true, desc = "Start of line (Home)" })
 vim.keymap.set("n", "L", "$", { noremap = true, silent = true, desc = "End of line (End)" })

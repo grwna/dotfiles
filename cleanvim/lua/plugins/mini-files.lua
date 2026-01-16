@@ -3,7 +3,6 @@ return {
     {
         "nvim-mini/mini.files",
         version = false,
-        lazy = false,
         keys = {
             {"<leader>e", function() require("mini.files").open() end, desc = "Open mini.files explorer"},
             {"<leader>E", function() require("mini.files").open(vim.api.nvim_buf_get_name(0), true)
@@ -33,7 +32,7 @@ return {
                 reset       = ',', -- default <BS>
                 reveal_cwd  = '.', -- default @
                 show_help   = 'g?',
-                synchronize = 's', -- default =
+                synchronize = 'S', -- default =
                 trim_left   = '<',
                 trim_right  = '>',
             },

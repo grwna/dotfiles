@@ -24,3 +24,29 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
 
 })
+
+------------------------------
+--- ENABLE AUTOREAD
+------------------------------
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
+  command = "if mode() != 'c' | checktime | endif",
+})
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+  callback = function()
+    vim.notify("File changed on disk. Buffer reloaded!", vim.log.levels.WARN, { title = "System" })
+  end,
+})
+
+------------------------------
+--- ENABLE AUTO-SAVE
+------------------------------
+--- Autosaves when leaving buffer or moving windows
+vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
+  callback = function()
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand("%") ~= "" and vim.bo.buftype == "" then
+      vim.cmd("silent! update")
+    end
+  end,
+})
+
