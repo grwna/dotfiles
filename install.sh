@@ -1,15 +1,78 @@
 #!/bin/bash
 
+
+# ==========================
+# Functions
+# ==========================
+EXCLUDED_DIRS=(
+    "others"
+    "vscode"
+)
+
+# Ensure we are in the correct directory
+cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+
+is_excluded() {
+    local dir_name="$1"
+    for excluded in "${EXCLUDED_DIRS[@]}"; do
+        if [[ "$dir_name" == "$excluded" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+get_all_configs() {
+    local packages=()
+    for dir in */; do
+        local pkg_name="${dir%/}"
+
+        if [[ $pkg_name == .* ]]; then continue; fi
+
+        if ! is_excluded "$pkg_name"; then
+            packages+=("$pkg_name")
+        fi
+    done
+    echo "${packages[@]}"
+}
+
+install_config() {
+    local package="$1"
+    if [ ! -d "$package" ]; then
+        echo " [SKIPPING] Package directory '$package' not found"
+        return
+    fi
+
+    echo "  -> Stowing: $package"
+    stow -v -R -t ~ "$package"
+}
+
+# ==========================
+# Main
+# ==========================
 # If no arguments are provided, print usage
 if [ -z "$1" ]; then
     echo "Usage: ./install.sh <component> [component...] or ./install.sh all"
     echo "Example: ./install.sh nvim bash"
+    echo ""
+    echo "Available packages:"
+    echo " $(get_all_configs)"
     exit 1
 fi
 
-echo "This script will install the following components: $@"
-echo "Installation is one with symlink. If the directory exists in your config folder, they will be deleted."
-read -p "Do you want to proceed with the installation? [Y/n] " confirm
+TARGETS=()
+
+if [ "$1" == "all" ]; then
+    TARGETS=($(get_all_configs))
+else
+    TARGETS=("$@")
+fi
+
+echo "This script will install the following configs: "
+echo "  ${TARGETS[*]}"
+echo "Installation is done with symlink through stow."
+echo "If the directory exists in your config folder, it is recommended to delete them first, this is due to how stow treats existing paths."
+read -p "Proceed? [Y/n] " confirm
 
 # Check the user's response
 case "$confirm" in
@@ -19,311 +82,15 @@ case "$confirm" in
     ;;
 # For any other input, abort
 *)
-    echo "Installation aborted by user."
+    echo "Aborted."
     exit 0
     ;;
 esac
 
-#####################################
-#          AVAILABLE CONFIGS        #
-#####################################
 # Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-# #
-#####################################
-# Loop through all provided arguments
-for component in "$@"; do
-    case $component in
-    zsh)
-        install_zsh
-        ;;
-    nvim)
-        install_nvim
-        ;;
-    cleanvim)
-        install_cleanvim
-        ;;
-    hypr)
-        install_hypr
-        ;;
-    waybar)
-        install_waybar
-        ;;
-    zsh-simple)
-        install_zsh_simple
-        ;;
-    tmux)
-        install_tmux
-        ;;
-    bash)
-        install_bash
-        ;;
-    kitty)
-        install_kitty
-        ;;
-    fastfetch)
-        install_fastfetch
-        ;;
-    all)
-        install_zsh
-        install_nvim
-        install_hypr
-        install_waybar
-        install_zsh-simple
-        install_bash
-        install_kitty
-        install_fastfetch
-        install_tmux
-        ;;
-    *)
-        echo "Unknown component: $component"
-        ;;
-    esac
+for component in "${TARGETS[@]}"; do
+    install_config $component
 done
 
-# Determine installation script's directory
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-install_config() {
-    local name="$1"
-    local source="$2"
-    local dest="$3"
-
-    echo "Installing $name configs"
-
-    # remove old configs
-    if [ -e "$dest" ] || [ -L "$dest" ]; then
-        echo "  Removing existing config at: $dest"
-        rm -rf "$dest"
-    fi
-
-    # Create parent directory if not exist
-    mkdir -p "$(dirname "$dest")"
-
-    # Create symlink
-    ln -sv "$source" "$dest"
-    echo ""
-}
-
-install_zsh() {
-    install_config "Zsh" "$DIR/zsh" "$HOME/.config/zsh"
-}
-
-install_zsh_simple() {
-    install_config "Zsh-simple" "$DIR/zsh-simple/.zshrc" "$HOME/.zshrc"
-}
-
-install_nvim() {
-    install_config "Neovim" "$DIR/nvim" "$HOME/.config/nvim"
-}
-
-install_cleanvim() {
-    install_config "Clean Neovim" "$DIR/cleanvim" "$HOME/.config/cleanvim"
-    echo "Cleanvim installed, make sure to add 'alias cvim='NVIM_APPNAME=cleanvim nvim' to your shell configurations"
-}
-
-install_hypr() {
-    install_config "Hyprland" "$DIR/hypr" "$HOME/.config/hypr"
-}
-
-install_waybar() {
-    install_config "Waybar" "$DIR/waybar" "$HOME/.config/waybar"
-}
-
-# These two were already correct because they specified the full path
-install_zsh-simple() {
-    install_config "Zsh-simple" "$DIR/zsh-simple/.zshrc" "$HOME/.zshrc"
-}
-
-install_bash() {
-    install_config "Bash" "$DIR/bash/.bashrc" "$HOME/.bashrc"
-}
-
-install_kitty() {
-    install_config "Kitty" "$DIR/kitty" "$HOME/.config/kitty"
-}
-
-install_fastfetch() {
-    install_config "Fastfetch" "$DIR/fastfetch" "$HOME/.config/fastfetch"
-}
-
-install_tmux() {
-    install_config "TMUX" "$DIR/tmux/.tmux.conf" "$HOME/.tmux.conf"
-}
-
+echo ""
+echo "Done!"

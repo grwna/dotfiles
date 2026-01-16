@@ -173,7 +173,7 @@ alias cls='clear'
 alias lg='lazygit'
 alias wex='explorer.exe'
 alias agy='antigravity'
-alias cvim='NVIM_APPNAME=cleanvim nvim'
+alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
 
 
