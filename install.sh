@@ -39,7 +39,12 @@ get_all_configs() {
 install_config() {
     local package="$1"
     if [ ! -d "$package" ]; then
-        echo " [SKIPPING] Package directory '$package' not found"
+        echo " [SKIPPING] Config directory '$package' not found"
+        return
+    fi
+
+    if  is_excluded "$package"; then
+        echo " [SKIPPING] Config is not installable"
         return
     fi
 
