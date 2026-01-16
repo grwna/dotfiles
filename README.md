@@ -1,23 +1,26 @@
 # Dotfiles
 
+>[!note]
+> This is a deprecated version of my dotfiles, made when i was naive and didn't know the existence of [GNU Stow](https://www.gnu.org/software/stow/). 
+> For the latest version, see [dotfiles](https://github.com/grwna/dotfiles/tree/main)
+
 My personal collection of dotfiles. This repository contains configurations for my development environment and system customization on Linux.
 
-## 📖 How to Use
+## 📖 how to use
+An automated installation script is provided that uses symlink to install specific configurations to their appropriate locations. if you would like to change the location, you would have to do so manually inside the script file: 'install.sh'.
 
-An automated installation script is provided that uses symlink to install specific configurations to their appropriate locations. If you would like to change the location, you would have to do so manually inside the script file: 'install.sh'.
-
-### 1. Clone the repository
+### 1. clone the repository
 
 ```bash
 git clone https://github.com/grwna/dotfiles.git
 cd dotfiles
 ```
 
-### 2. Run the installation script
+### 2. run the installation script
 
-The script supports installing individual components or all of them at once.
+the script supports installing individual components or all of them at once.
 
-**Usage:**
+**usage:**
 
 ```bash
 ./install.sh <component> [component...]
@@ -36,16 +39,7 @@ Install everything:
 ```
 
 **Available Components:**
-- `zsh`
-- `zsh-simple`
-- `nvim`
-- `cleanvim`
-- `hypr`
-- `waybar`
-- `bash`
-- `kitty`
-- `fastfetch`
-- `tmux`
+To see a list of available components, you have to read the installation script
 
 > **Note:** The script will verify before removing any existing configurations in the target directories.
 
