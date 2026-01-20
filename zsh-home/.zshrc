@@ -195,3 +195,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$PATH:/snap/bin"
 
+# fnm
+FNM_PATH="/home/grwna/.local/share/fnm"
+export PATH="$FNM_PATH:$PATH"
+alias sfnm='eval "$(fnm env --use-on-cd --shell zsh)"'
