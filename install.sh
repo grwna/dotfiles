@@ -61,7 +61,7 @@ if [ -z "$1" ]; then
     echo "Example: ./install.sh nvim bash"
     echo ""
     echo "Available packages:"
-    echo " $(get_all_configs)"
+    printf "%s\n" $(get_all_configs) | xargs -n 4 | column -t | sed 's/^/  /'
     exit 1
 fi
 

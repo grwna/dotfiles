@@ -1,6 +1,19 @@
 # Dotfiles
 
 My personal collection of dotfiles. This repository contains configurations for my development environment and system customization on Linux.
+Note that my main workflow
+
+## Repository Structure
+```
+.
+├── README.md
+├── others
+├── windows
+├── install.sh
+└── [installable configs]
+```
+- others: contains customization/ricing related things that are not configs
+- windows: contains configs for my Windows setup
 
 ## 📖 how to use
 An automated installation script is provided that uses stow to create symlinks for specific configurations to their appropriate locations. 
@@ -38,5 +51,5 @@ Install everything:
 ```
 
 **Available Components:**
-The components you can install are all directories in this repository except for `others` and `vscode`
+The components you can install are all directories in this repository except for `others` and `windows`
 
