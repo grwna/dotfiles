@@ -2,10 +2,13 @@ local picker_dropdown = {layout = { preset = "dropdown"}}
 local picker_ivy = {layout = { preset = "ivy_split"}}
 local picker_right = {layout = { preset = "right"}}
 local picker_select = {layout = { preset = "select"}}
-local picker_top = {layout = { preset = "top", preview = "false"}}
 
 return {
   enabled = true,
+
+  hidden = true, -- index hidden files
+  ignored = false, -- don't index ignored files
+
   matcher = {
     frecency = true,
   },
@@ -18,6 +21,7 @@ return {
         ["<C-e>"] = { "jump", mode = { "i", "n" } },
         ["<C-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
         ["<C-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+        ["<C-h>"] = { "toggle_hidden", mode = { "i", "n" } },
 
       },
     },
@@ -66,7 +70,7 @@ return {
     commands = picker_select,
     icons = picker_select,
 
-    keymaps = picker_top,
+    keymaps = picker_ivy,
 
     pickers = {
         layout = {

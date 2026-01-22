@@ -4,7 +4,7 @@ return {
         event = "VeryLazy",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "echasnovski/mini.icons",
+            "nvim-mini/mini.icons",
             "folke/snacks.nvim",
         },
 

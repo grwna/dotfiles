@@ -51,11 +51,13 @@ return {
             { "<leader>fg", function() Snacks.picker.grep() end, desc = "Find Text" },
             { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Find Buffers" },
             { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume Picker" },
+            { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks List" },
+            { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List" },
             
             -- Extra Keys
             -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
-            { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
-            { "<leader>bo", function() Snacks.bufdelete.other() end, desc = "Delete All Other Buffer" },
+            { "<leader>bdd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
+            { "<leader>bdo", function() Snacks.bufdelete.other() end, desc = "Delete All Other Buffer" },
             { "<leader>lg", function() Snacks.lazygit() end, desc = "Open Lazygit" },
 
           }
