@@ -9,6 +9,8 @@ return {
                 "lua_ls",
                 "pyright",
                 "clangd",
+                "eslint",
+                "ts_ls",
             },
             automatic_installation = true,
         },

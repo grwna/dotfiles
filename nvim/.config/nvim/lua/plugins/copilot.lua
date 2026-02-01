@@ -14,7 +14,7 @@ return {
                     if is_enabled then
                        vim.notify("Copilot ON", vim.log.levels.INFO, { title = "Copilot" })
                     else
-                       vim.notify("Copilot OFF", vim.log.levels.WARN, { title = "Copilot" })
+                       vim.notify("Copilot OFF", vim.log.levels.INFO, { title = "Copilot" })
                     end
                 end,
                 desc = "Toggle Copilot Completion",
@@ -38,8 +38,11 @@ return {
 
                 filetypes = {
                     ["*"] = true,
-                }
+                },
                 
+                logger = {
+                    print_log_level = vim.log.levels.OFF,
+                },
             })
 
             -- for lualine copilot icon
