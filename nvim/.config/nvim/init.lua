@@ -1,3 +1,8 @@
+-- add custom folders
+require("config.autocmds")
+require("config.keymaps")
+require("config.options")
+
 -- bootstrap lazy.nvim
 -- require("config.startup")
 require("config.lazy")

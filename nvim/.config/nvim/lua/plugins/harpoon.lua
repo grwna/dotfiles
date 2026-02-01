@@ -10,8 +10,8 @@ return {
         opts = {
             settings = {
                 -- these are defaults
-                save_on_toggle = false,
-                sync_on_ui_close = false,
+                save_on_toggle = true,
+                sync_on_ui_close = true,
                 key = function()
                     return vim.loop.cwd()
                 end,
@@ -22,10 +22,11 @@ return {
             {"<leader>ha", function() list():add() end, desc = "Harpoon add file"},
             {"<leader>hl", function() ui():toggle_quick_menu(list()) end, desc = "Harpoon open list"},
 
-            {"<leader>1", function() list():select(1) end, desc = "Harpoon 1", hidden = true},
-            {"<leader>2", function() list():select(2) end, desc = "Harpoon 2", hidden = true},
-            {"<leader>3", function() list():select(3) end, desc = "Harpoon 3", hidden = true},
-            {"<leader>4", function() list():select(4) end, desc = "Harpoon 4", hidden = true},
+            {"<M-u>", function() list():select(1) end, desc = "Harpoon 1"},
+            {"<M-i>", function() list():select(2) end, desc = "Harpoon 2"},
+            {"<M-o>", function() list():select(3) end, desc = "Harpoon 3"},
+            {"<M-p>", function() list():select(4) end, desc = "Harpoon 4"},
+            {"<M-;>", function() list():select(5) end, desc = "Harpoon 5"},
         },
     },
 }

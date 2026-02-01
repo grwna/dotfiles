@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 return {
     {
         "mason-org/mason-lspconfig.nvim",
@@ -11,6 +12,20 @@ return {
             },
             automatic_installation = true,
         },
+
+        config = function (_, opts)
+            require("mason").setup()
+            require("mason-lspconfig").setup(opts)
+
+            vim.diagnostic.config({
+                virtual_text = true,
+                underline = true,
+            })
+
+            for _, server in ipairs(opts.ensure_installed) do
+                vim.lsp.enable(server)
+            end
+        end,
 
         dependencies = {
             {

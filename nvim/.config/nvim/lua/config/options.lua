@@ -26,3 +26,4 @@ opt.cursorline = true
 opt.scrolloff = 8         
 opt.signcolumn = "yes"   
 opt.laststatus = 3
+

@@ -9,3 +9,4 @@ extra
 - configure snacks's dashboard (look at https://github.com/folke/snacks.nvim/blob/main/docs/dashboard.md)
     you can add images or ascii art to it bruhq:j
 - create custom todo-comments buffer picker for snacks 
+- have lualine use tabline instead (line at the top instead of bottom)

@@ -3,6 +3,11 @@ local picker_ivy = {layout = { preset = "ivy_split"}}
 local picker_right = {layout = { preset = "right"}}
 local picker_select = {layout = { preset = "select"}}
 
+local grep_settings = {
+  layout = { preset = "ivy_split" },
+  args = { "--fixed-strings" }, 
+}
+
 return {
   enabled = true,
 
@@ -31,6 +36,8 @@ return {
     preset = "ivy_split",
     preview = "main", -- preview as the main
   },
+  
+    args = {"--fixed-strings"},
 
     formatters = {
         file = {
@@ -47,12 +54,13 @@ return {
     git_status = picker_dropdown,
     git_files = picker_dropdown,
 
+    grep = grep_settings,
+    grep_buffers = grep_settings,
+    git_grep = grep_settings,
+
     diagnostics = picker_ivy,
     diagnostics_buffer = picker_ivy,
-    grep = picker_ivy,
-    grep_buffers = picker_ivy,
     git_diff = picker_ivy,
-    git_grep = picker_ivy,
     git_log = picker_ivy,
     git_log_file = picker_ivy,
     git_log_line = picker_ivy,

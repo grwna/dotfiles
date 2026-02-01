@@ -50,3 +50,29 @@ vim.api.nvim_create_autocmd({ "FocusLost", "BufLeave" }, {
   end,
 })
 
+
+--------------------------------------------
+--- DISABLE NUMBER LINE FOR TERMINALS 
+--- -----------------------------------------
+vim.api.nvim_create_autocmd({"TermOpen", "BufEnter"}, {
+    group = vim.api.nvim_create_augroup("custom-term-open", {clear = true}),
+    callback = function ()
+        if vim.opt.buftype:get() == "terminal" then
+            vim.opt_local.number = false
+            vim.opt_local.relativenumber = false
+        end
+    end
+
+})
+
+
+--------------------------------------------
+--- THEME RELATED COMMANDS
+--- -----------------------------------------
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        local hl = vim.api.nvim_get_hl(0, { name = "@function", link = false})
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = hl.fg, bold = true })
+    end,
+})

@@ -11,7 +11,6 @@ return {
         },
 
         keys = {
-            {"<leader>aa", function() require("avante.api").ask() end, mode = {"n", "v"}, desc = "avante: ask"},
             {"<leader>ae", function() require("avante.api").edit() end, mode = {"v"}, desc = "avante: edit"},
             {"<leader>at", function() require("avante.api").toggle() end, mode = {"n", "v"}, desc = "avante: toggle"},
             {

@@ -12,8 +12,10 @@ wk.add({
     { "<leader>qq", "<cmd>q!<cr>", desc = "Quit Neovim" },
     { "<leader>wq", "<cmd>wq<cr>", desc = "Quit Neovim and Save File" },
     { "<leader>m", "<cmd>messages<cr>", desc = "Open System Messages" },
-    { "<leader>ya", "<cmd>%y<cr>", desc = "Yank whole file" },
-    { "<leader>yA", "<cmd>%y+<cr>", desc = "Yank whole file into system clipboard" },
+    { "<leader>yy", "<cmd>%y<cr>", desc = "Yank whole file" },
+    { "<leader>yY", "<cmd>%y+<cr>", desc = "Yank whole file into system clipboard" },
+    { "<leader>'", '"+', desc = "Register Prefix", mode = {"v", "n"} },
+
 
     -- buffers
     { "<leader>bb", "<cmd>b#<cr>", desc = "Go to most recent Buffer" },

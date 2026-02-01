@@ -9,7 +9,7 @@ return {
         modes = { -- try these enabled first
           search = { enabled = false },
           char = { 
-                    enabled = true,
+                    enabled = false,
                     highlight = {
                         backdrop = false,
                     }
