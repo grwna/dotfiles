@@ -9,8 +9,6 @@ wk.add({
     { "<leader>a", group = "+AI" },
 
     { "<leader>lz", "<cmd>Lazy<cr>", desc = "Open Lazy Menu" },
-    { "<leader>qq", "<cmd>q!<cr>", desc = "Quit Neovim" },
-    { "<leader>wq", "<cmd>wq<cr>", desc = "Quit Neovim and Save File" },
     { "<leader>m", "<cmd>messages<cr>", desc = "Open System Messages" },
     { "<leader>yy", "<cmd>%y<cr>", desc = "Yank whole file" },
     { "<leader>yY", "<cmd>%y+<cr>", desc = "Yank whole file into system clipboard" },
@@ -31,4 +29,9 @@ wk.add({
     {"<leader>3", hidden = true},
     {"<leader>4", hidden = true},
 
+    -- quits
+    { "<leader>qq", "<cmd>q!<cr>", desc = "Quit Neovim" , mode = {"v", "n"}},
+    { "<leader>qa", "<cmd>qa!<cr>", desc = "Quit Neovim (all Windows)" , mode = {"v", "n"}},
+    { "<leader>wq", "<cmd>wq<cr>", desc = "Quit Neovim and Save File" , mode = {"v", "n"}},
+    { "<leader>ww", "<cmd>w<cr>", desc = "Save File" , mode = {"v", "n"}},
 })
