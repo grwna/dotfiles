@@ -13,6 +13,8 @@ return {
 				"eslint",
 				"ts_ls",
 				"emmet_language_server",
+                "tailwindcss",
+                "cssls",
 			},
 			automatic_installation = true,
 		},

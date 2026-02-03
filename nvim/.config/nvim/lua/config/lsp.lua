@@ -3,30 +3,6 @@ local keymap = vim.keymap -- for conciseness
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-
-		-- KILL TAILWIND BLOAT
-		if client and client.name == "tailwindcss" then
-			client.server_capabilities.colorProvider = false
-			client.server_capabilities.documentHighlightProvider = false
-			client.server_capabilities.completionProvider.triggerCharacters =
-				{ '"', "'", "`", ".", "(", "[", "!", "/", ":" }
-		end
-
-        -- TS_LS UNUSED REPORTING
-		if client and client.name == "ts_ls" then
-			client.server_capabilities.diagnosticProvider = {
-				interFileDependencies = false,
-				workspaceDiagnostics = false,
-			}
-			local old_on_publish_diagnostics = vim.lsp.handlers["textDocument/publishDiagnostics"]
-			vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(old_on_publish_diagnostics, {
-				filter = function(diagnostic)
-					return diagnostic.code ~= 6133 and diagnostic.code ~= 6192
-				end,
-			})
-		end
-
 		-- Buffer local mappings.
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local opts = { buffer = ev.buf, silent = true }
@@ -89,7 +65,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- vim.lsp.inlay_hint.enable(true)
 
 local severity = vim.diagnostic.severity
-
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -100,3 +75,16 @@ vim.diagnostic.config({
 		},
 	},
 })
+
+local original_publish_diagnostics = vim.lsp.handlers["textDocument/publishDiagnostics"]
+vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+  local client = vim.lsp.get_client_by_id(ctx.client_id)
+  
+  if client and (client.name == "ts_ls" or client.name == "typescript") then
+    result.diagnostics = vim.tbl_filter(function(d)
+      return d.code ~= 6133 and d.code ~= 6192
+    end, result.diagnostics)
+  end
+
+  original_publish_diagnostics(err, result, ctx, config)
+end

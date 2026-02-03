@@ -46,7 +46,6 @@ return {
 				lsp = {
 					score_offset = 100,
 					fallbacks = { "buffer" },
-					min_keyword_length = 3,
 					timeout_ms = 100,
 					async = true,
 					max_items = 30,
