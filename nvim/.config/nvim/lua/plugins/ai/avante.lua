@@ -39,14 +39,13 @@ return {
                 },
             },
         },
-        
+
         dependencies = {
             "MunifTanjim/nui.nvim", -- sidebar ui
             "MeanderingProgrammer/render-markdown.nvim", -- sidebar ui
             "nvim-lua/plenary.nvim",
-            "hrsh7th/nvim-cmp",
             "zbirenbaum/copilot.lua",
             "folke/snacks.nvim",
         },
     }
-} 
+}

@@ -5,7 +5,7 @@ return {
 
         branch = "master",
         build = ':TSUpdate',
-        
+
         -- MAIN VERSION (UNSTABLE)
         -- config = function ()
         --     require("nvim-treesitter").setup({})
@@ -32,8 +32,8 @@ return {
         --     vim.opt.foldlevel = 99
         --     vim.opt.foldlevelstart = 99
         -- end
-        
-        
+
+
         -- MASTER VERSION (STABLE)
         config = function ()
             local configs = require("nvim-treesitter.configs")
@@ -46,6 +46,11 @@ return {
                     "cpp",
                     "c",
                     "javascript",
+                    "typescript",
+                    "tsx",
+                    "css",
+                    "json",
+                    "jsdoc",
                     "html",
                     "markdown",
                     "markdown_inline"

@@ -1,18 +1,23 @@
 return {
     {
         "EdenEast/nightfox.nvim",
+        enabled = false,
         priority = 1000,
-        config = function()
-           require("nightfox").setup({})
-           vim.cmd("colorscheme carbonfox")
-
-            -- Force a strong underline (sp = special color for underline)
-            vim.api.nvim_set_hl(0, "LspReferenceText", { underline = true, sp = "#61afef", bold = false })
-            vim.api.nvim_set_hl(0, "LspReferenceRead", { underline = true, sp = "#61afef", bold = false })
-            vim.api.nvim_set_hl(0, "LspReferenceWrite", { underline = true, sp = "#61afef", bold = false })
-        end,
+        -- config = function()
+        --    require("nightfox").setup({})
+        --    vim.cmd("colorscheme carbonfox")
+        -- end,
         -- to see the list of variants, visit https://vimcolorschemes.com/edeneast/nightfox.nvim
     },
-
+    {
+        {
+            "tiagovla/tokyodark.nvim",
+            opts = {},
+            config = function(_, opts)
+                require("tokyodark").setup(opts) 
+                vim.cmd("colorscheme tokyodark")
+            end,
+        }
+    },
 }
 
