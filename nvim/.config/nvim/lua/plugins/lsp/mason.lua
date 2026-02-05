@@ -21,16 +21,51 @@ return {
 
 		config = function(_, opts)
 			require("mason").setup()
+			require("mason-lspconfig").setup(opts)
 
 			vim.diagnostic.config({
 				virtual_text = true,
 				underline = true,
 			})
 
-            for _, server in ipairs(opts.ensure_installed) do
-                vim.lsp.enable(server)
-            end
-        end,
+			local lspconfig = require("lspconfig")
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
+			-- Manual mapping for servers where Mason name != lspconfig name
+			local mapping = {
+				ts_ls = "tsserver",
+			}
+
+			local function is_supported(server)
+				local status, _ = pcall(require, "lspconfig.server_configurations." .. server)
+				return status
+			end
+
+			for _, server in ipairs(opts.ensure_installed) do
+				local lsp_name = mapping[server] or server
+				
+				local config = {
+					capabilities = vim.deepcopy(capabilities),
+				}
+
+				if lsp_name == "cssls" then
+					config.capabilities = vim.tbl_deep_extend("force", config.capabilities, {
+						textDocument = {
+							completion = {
+								completionItem = {
+									snippetSupport = true,
+								},
+							},
+						},
+					})
+				end
+
+				-- Only setup if lspconfig actually has the configuration
+				if is_supported(lsp_name) then
+					lspconfig[lsp_name].setup(config)
+				end
+			end
+		end,
 
         dependencies = {
             {
