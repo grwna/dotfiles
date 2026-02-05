@@ -146,7 +146,7 @@ source ~/Script/install-log.sh
 # CUSTOM FUNCTIONS
 source ~/Ricing/zsh/functions.rice
 
-# ALIASES
+# ========================= ALIASES =========================
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
 alias logi='nvim ~/info/installed_packages.log'
@@ -175,9 +175,16 @@ alias wex='explorer.exe'
 alias agy='antigravity'
 alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
+alias tmuxp='tmuxp_script'
+
+# dev work
+alias brd='bun run dev'
+alias shadd='bunx shadcn@latest add'
+alias shinit='bunx shadcn@latest init'
+alias cnapp='bunx create-next-app@latest'
 
 
-# INSTALLATIONS
+# ========================= INSTALLATIONS =========================
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
@@ -199,3 +206,6 @@ export PATH="$PATH:/snap/bin"
 FNM_PATH="/home/grwna/.local/share/fnm"
 export PATH="$FNM_PATH:$PATH"
 alias sfnm='eval "$(fnm env --use-on-cd --shell zsh)"'
+
+# tmuxp
+export DISABLE_AUTO_TITLE='true'
