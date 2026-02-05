@@ -10,6 +10,8 @@ wk.add({
 
     { "<leader>lz", "<cmd>Lazy<cr>", desc = "Open Lazy Menu" },
     { "<leader>m", "<cmd>messages<cr>", desc = "Open System Messages" },
+
+    -- editing
     { "<leader>yy", "<cmd>%y<cr>", desc = "Yank whole file" },
     { "<leader>yY", "<cmd>%y+<cr>", desc = "Yank whole file into system clipboard" },
     { "<leader>'", '"+', desc = "Register Prefix", mode = {"v", "n"} },
@@ -34,4 +36,7 @@ wk.add({
     { "<leader>qa", "<cmd>qa!<cr>", desc = "Quit Neovim (all Windows)" , mode = {"v", "n"}},
     { "<leader>wq", "<cmd>wq<cr>", desc = "Quit Neovim and Save File" , mode = {"v", "n"}},
     { "<leader>ww", "<cmd>w<cr>", desc = "Save File" , mode = {"v", "n"}},
+
+    -- other
+    {"<leader>wr", "<cmd>set wrap!<cr>", desc= "Toggle Line Wrap", mode = {"v", "n"}},
 })

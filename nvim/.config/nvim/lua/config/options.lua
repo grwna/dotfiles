@@ -27,3 +27,5 @@ opt.scrolloff = 8
 opt.signcolumn = "yes"   
 opt.laststatus = 3
 
+opt.linebreak = true
+opt.breakindent = true

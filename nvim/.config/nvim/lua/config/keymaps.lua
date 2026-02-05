@@ -33,3 +33,7 @@ vim.keymap.set("t", "<M-[>", "<C-\\><C-n>", {desc = "Exit terminal mode", nowait
 -- other
 vim.keymap.set({"i", "v", "c"}, "<M-[>", "<Esc>", { desc = "Exit mode" })
 vim.keymap.set("n", "<M-[>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear highlights / Escape" })
+
+-- navigating wrapped lines
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
