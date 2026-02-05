@@ -1,6 +1,7 @@
 -- taken directly from "https://github.com/josean-dev/dev-environment-files/blob/main/.config/nvim/lua/josean/plugins/autopairs.lua"
 return {
     "windwp/nvim-autopairs",
+    enabled = not vim.g.vscode,
     event = { "InsertEnter" },
     dependencies = {
       "saghen/blink.cmp",

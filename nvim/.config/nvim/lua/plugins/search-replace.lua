@@ -1,6 +1,7 @@
 return {
     {
         "roobert/search-replace.nvim",
+        enabled = not vim.g.vscode,
         config = function()
             require("search-replace").setup(
                 {

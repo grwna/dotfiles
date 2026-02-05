@@ -2,6 +2,7 @@
 return {
 	{
 		"mason-org/mason-lspconfig.nvim",
+        enabled = not vim.g.vscode,
 		event = { "BufReadPre", "BufNewFile" },
 		cmd = { "Mason" },
 		opts = {

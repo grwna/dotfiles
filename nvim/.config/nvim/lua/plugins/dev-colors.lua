@@ -1,6 +1,7 @@
 return {
 	{
 		"catgoose/nvim-colorizer.lua",
+        enabled = not vim.g.vscode,
 		ft = {
 			"css",
 			"html",
@@ -20,6 +21,7 @@ return {
 	},
 	{
 		"uga-rosa/ccc.nvim",
+        enabled = not vim.g.vscode,
 		keys = {
 			{ "<leader>ccp", "<cmd>CccPick<cr>", desc = "CCC Picker" },
 			{ "<leader>ccv", "<cmd>CccConvert<cr>", desc = "CCC Convert Format" },

@@ -2,6 +2,7 @@
 return {
     {
         "nvim-mini/mini.files",
+        enabled = not vim.g.vscode,
         version = false,
         keys = {
             -- {"<leader>e", function() require("mini.files").open() end, desc = "Open mini.files explorer"}, -- used by nvim-tree

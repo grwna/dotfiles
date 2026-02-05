@@ -2,6 +2,7 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
+        enabled = not vim.g.vscode,
         event = "VeryLazy",
         dependencies = {
             "nvim-mini/mini.icons",

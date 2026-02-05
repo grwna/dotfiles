@@ -1,6 +1,7 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        enabled = not vim.g.vscode,
         event = {"BufReadPre", "BufNewFile"},
 
         branch = "master",
