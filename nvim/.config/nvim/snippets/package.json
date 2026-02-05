@@ -1,0 +1,12 @@
+{
+  "name": "next-snippets",
+  "author": "grwna",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "typescriptreact",
+        "path": "./next.json"
+      }
+    ]
+  }
+}

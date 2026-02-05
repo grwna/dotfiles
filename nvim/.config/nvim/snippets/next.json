@@ -1,0 +1,23 @@
+{
+  "Next.js 15 Async Params": {
+    "prefix": "nxpa",
+    "body": [
+      "const ${1:PageName} = async ({ params }: { params: Promise<{ ${2:id}: string }> }) => {",
+      "  const { ${2:id} } = await params;",
+      "  $0",
+      "}"
+    ]
+  },
+  "Next.js Layout Inline": {
+    "prefix": "nxla",
+    "body": [
+      "const ${1:Name}Layout = ({ children }: { children: React.ReactNode }) => {",
+      "  return (",
+      "    <section>",
+      "      {children}",
+      "    </section>",
+      "  );",
+      "}"
+    ]
+  }
+}
