@@ -37,8 +37,8 @@ ctrl + alt + j           : komorebic stack down
 ctrl + alt + k           : komorebic stack up
 ctrl + alt + l           : komorebic stack right
 ctrl + alt + oem_1       : komorebic unstack # oem_1 is ;
-ctrl + alt + oem_comma   : komorebic cycle-stack previous # oem_x is <
-ctrl + alt + oem_period  : komorebic cycle-stack next # oem_y is x
+alt shift + oem_comma   : komorebic cycle-stack previous 
+alt shift + oem_period  : komorebic cycle-stack next
 
 # Resize
 alt + oem_plus          : komorebic resize-axis horizontal increase
@@ -93,3 +93,4 @@ alt + shift + 8         : komorebic move-to-workspace 7
 # .	oem_period	Used for >
 # -	oem_minus	Great for resizing
 # +	oem_plus	Great for resizing
+
