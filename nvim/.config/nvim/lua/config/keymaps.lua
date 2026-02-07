@@ -1,8 +1,8 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
--- Basic keymappings (can be used on any neovim installation with no plugins)
-vim.keymap.set("i", "kj", "<Esc>", { desc = "Exit Insert Mode" })
+-- Motions
+-- vim.keymap.set("i", "kj", "<Esc>", { desc = "Exit Insert Mode" })
 vim.keymap.set("i", "KJ", "<Esc>", { desc = "Exit Insert Mode" })
 vim.keymap.set("v", "mn", "<Esc>", { desc = "Exit Visual Mode" })
 vim.keymap.set("v", "MN", "<Esc>", { desc = "Exit Visual Mode" })
@@ -10,11 +10,16 @@ vim.keymap.set("v", "MN", "<Esc>", { desc = "Exit Visual Mode" })
 vim.keymap.set("n", "H", "^", { noremap = true, silent = true, desc = "Start of line (Home)" })
 vim.keymap.set("n", "L", "$", { noremap = true, silent = true, desc = "End of line (End)" })
 
-vim.keymap.set("v", "H", "^", { noremap = true, silent = true, desc = "Start of line (Home)" })
-vim.keymap.set("v", "L", "$", { noremap = true, silent = true, desc = "End of line (End)" })
+vim.keymap.set("x", "H", "^", { noremap = true, silent = true, desc = "Start of line (Home)" })
+vim.keymap.set("x", "L", "$", { noremap = true, silent = true, desc = "End of line (End)" })
 
 vim.keymap.set("o", "H", "^", { noremap = true, silent = true, desc = "Start of line (Home)" })
 vim.keymap.set("o", "L", "$", { noremap = true, silent = true, desc = "End of line (End)" })
+
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true})
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, silent = true})
+vim.keymap.set("n", "<C-f>", "<C-f>zz", { noremap = true, silent = true})
+vim.keymap.set("n", "<C-b>", "<C-b>zz", { noremap = true, silent = true})
 
 -- Window Management
 vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true, silent = true, desc = "Go to the left window" })
@@ -37,3 +42,4 @@ vim.keymap.set("n", "<M-[>", "<cmd>nohlsearch<cr><Esc>", { desc = "Clear highlig
 -- navigating wrapped lines
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+

@@ -24,7 +24,6 @@ return {
 
 			-- custom mappings
 			-- vim.keymap.set('n', '<C-t>', api.tree.change_root_to_parent,        opts('Up')) (example)
-			vim.keymap.set("n", "L", api.node.open.edit, opts("Open"))
 			vim.keymap.set("n", "N", api.node.open.toggle_group_empty, opts("Toggle Group Empty"))
 			vim.keymap.set("n", "v", function ()
                 local node = api.tree.get_node_under_cursor()
