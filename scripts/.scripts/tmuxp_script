@@ -1,0 +1,30 @@
+#!/bin/bash
+
+BASE_DIR="$HOME/.tmux-templates/"
+TARGET_DIR="${2:-$(pwd)}"
+
+if [ ! -d "$BASE_DIR" ]; then
+    echo "Error: $BASE_DIR does not exist."
+fi
+
+# argument check
+if [ -z "$1" ]; then
+    echo "Usage: tmuxp <template-name> <start-directory>"
+    echo "--- Available templates ---"
+    ls "$BASE_DIR" | grep '\.yaml$' | sed 's/\.yaml$//' | column
+    exit 1
+fi
+
+# match file with argument
+# -maxdepth 1: Only looks in the base folder 
+FILE=$(find -L "$BASE_DIR" -maxdepth 1 -iname "$1.yaml" -type f | head -n 1)
+
+if [ -n "$FILE" ]; then
+    export PROJECT_DIR=$(realpath -m "$TARGET_DIR")
+    tmuxp load "$FILE"
+
+else
+    echo "No template with name '$1' in $BASE_DIR"
+    echo "--- Available templates ---"
+    ls "$BASE_DIR" | grep '\.yaml$' | sed 's/\.yaml$//' | column
+fi
