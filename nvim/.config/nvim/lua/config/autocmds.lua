@@ -1,4 +1,4 @@
--- Autocmds are automatically loaded on the VeryLazy event
+
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 --
 -- Add any additional autocmds here
@@ -86,3 +86,29 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		end
 	end,
 })
+
+
+--------------------------------------------
+--- SUPPORT FOR READING MODE (CUSTOM EVENT)
+--- -----------------------------------------
+vim.api.nvim_create_autocmd({"BufReadPre", "BufNewFile"}, {
+    group = vim.api.nvim_create_augroup("LspControl", {clear = true}),
+    callback = function ()
+        if not vim.g.disable_lsp then
+            vim.api.nvim_exec_autocmds("User", {pattern = "FileOpened"})
+        end
+    end
+})
+
+
+--------------------------------------------
+--- 
+--- -----------------------------------------
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 then
+        pcall(vim.cmd("Alpha"))
+    end
+  end,
+})
+

@@ -30,6 +30,7 @@ return {
                 api.marks.toggle(node)
 			end, opts("Toggle Bookmarks"))
 			vim.keymap.set("n", "V", api.marks.clear, opts("Clear All Bookmarks"))
+            vim.keymap.del("n", "s", { buffer = bufnr })
 		end
 
 		require("nvim-tree").setup({

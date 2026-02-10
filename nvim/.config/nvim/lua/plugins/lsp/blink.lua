@@ -1,6 +1,7 @@
 return {
 	"saghen/blink.cmp",
-	enabled = not vim.g.vscode,
+	enabled = not vim.g.vscode and not vim.g.disable_lsp,
+    event = {"BufReadPre", "BufNewFile"},
 	version = "v1.7",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
@@ -22,15 +23,15 @@ return {
 		snippets = {
 			preset = "luasnip",
 		},
-
 		keymap = {
 			preset = "default",
 			["<C-k>"] = { "select_prev", "fallback" },
 			["<C-j>"] = { "select_next", "fallback" },
-			["<C-h>"] = { "show", "show_documentation", "hide_documentation" },
-			["<C-e>"] = { "hide", "fallback" },
+			["<C-l>"] = { "show", "show_documentation", "hide_documentation" },
+			["<M-'>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
 		},
+
 
 		appearance = {
 			use_nvim_cmp_as_default = false,
@@ -47,6 +48,7 @@ return {
 			},
 			trigger = {
 				prefetch_on_insert = false,
+                show_on_blocked_trigger_characters = { ' ', '\n', '\t', '{', '(', '}', ')'}
 			},
 		},
 
@@ -62,10 +64,10 @@ return {
 					fallbacks = { "buffer" },
 					timeout_ms = 100,
 					async = true,
-					max_items = 8,
+					max_items = 20,
 				},
 				snippets = {
-					max_items = 4,
+					max_items = 20,
 					min_keyword_length = 2,
 					-- only show exact matches for snippets
 					-- transform_items = function(ctx, items)

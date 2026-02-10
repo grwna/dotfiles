@@ -1,23 +1,59 @@
 {
-  "Next.js 15 Async Params": {
+  "Next.js 15 Async Page": {
     "prefix": "nxpa",
     "body": [
-      "const ${1:PageName} = async ({ params }: { params: Promise<{ ${2:id}: string }> }) => {",
-      "  const { ${2:id} } = await params;",
+      "export default async function ${1:Page}({ ${2:params} }: { ${2:params}: Promise<{ ${3:id}: ${4:string} }> }) {",
+      "  const { ${3:id} } = await ${2:params};",
+      "  ",
       "  $0",
+      "  ",
+      "  return (",
+      "    <div></div>",
+      "  );",
       "}"
     ]
   },
   "Next.js Layout Inline": {
     "prefix": "nxla",
     "body": [
-      "const ${1:Name}Layout = ({ children }: { children: React.ReactNode }) => {",
+      "export default function ${1:Name}Layout({ children }: { children: React.ReactNode }) {",
       "  return (",
       "    <section>",
       "      {children}",
+      "      $0",
       "    </section>",
       "  );",
       "}"
     ]
-  }
+  },
+  "React Component with Props": {
+    "prefix": "nxcp",
+    "body": [
+      "import { ComponentPropsWithoutRef } from 'react';",
+      "",
+      "interface ${1:Component}Props extends ComponentPropsWithoutRef<'${2:div}'> {",
+      "  ${3:customProp}?: string;",
+      "}",
+      "",
+      "export default function ${1:Component}({ children, className, ...props }: ${1:Component}Props) {",
+      "  return (",
+      "    <div className={`${className}`} {...props}>",
+      "      {children}",
+      "    </${2:div}>",
+      "  );",
+      "}"
+    ]
+  },
+    "React Theme Providers": {
+        "prefix": "ncpr",
+        "body": [
+            "'use client'",
+            "import { ThemeProvider } from 'next-themes'",
+            "export function Providers({ children }: {children: React.ReactNode}) {",
+            "    return <ThemeProvider attribute='class' defaultTheme='system' enableSystem>",
+            "        {children}",
+            "    </ThemeProvider>",
+            "}"
+        ]
+    }
 }

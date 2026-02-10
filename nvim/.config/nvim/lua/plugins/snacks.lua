@@ -53,6 +53,7 @@ return {
             { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume Picker" },
             { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks List" },
             { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List" },
+            { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
             
             -- Extra Keys
             -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },

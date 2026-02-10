@@ -32,7 +32,7 @@ wk.add({
     {"<leader>4", hidden = true},
 
     -- quits
-    { "<leader>qq", "<cmd>q!<cr>", desc = "Quit Neovim" , mode = {"v", "n"}},
+    { "<leader>qj", "<cmd>q!<cr>", desc = "Quit Neovim" , mode = {"v", "n"}},
     { "<leader>qa", "<cmd>qa!<cr>", desc = "Quit Neovim (all Windows)" , mode = {"v", "n"}},
     { "<leader>wq", "<cmd>wq<cr>", desc = "Quit Neovim and Save File" , mode = {"v", "n"}},
     { "<leader>ww", "<cmd>w<cr>", desc = "Save File" , mode = {"v", "n"}},

@@ -23,11 +23,8 @@ return {
     input = {
       keys = {
         ["<C-q>"] = { "qflist", mode = { "i", "n" } },
-        ["<C-e>"] = { "jump", mode = { "i", "n" } },
-        ["<C-k>"] = { "preview_scroll_up", mode = { "i", "n" } },
-        ["<C-j>"] = { "preview_scroll_down", mode = { "i", "n" } },
+        ["<M-'>"] = { "jump", mode = { "i", "n" } },
         ["<C-h>"] = { "toggle_hidden", mode = { "i", "n" } },
-
       },
     },
   },
@@ -70,7 +67,7 @@ return {
 
     man = picker_right,
     help = picker_right,
-    todo_comments = picker_right,
+    -- todo_comments = picker_right,
     buffers = {layout = {preset = "left"}},
 
     autocmds = picker_select,
@@ -86,20 +83,5 @@ return {
                 preview = false,
             }
         },
-
-    -- custom todo-buffer picker
-    -- todo_comments_buffer = {
-    --     layout = {preset = "ivy"},
-    --     fn = "grep_buffers",
-    --     desc = "Seach TODO comments in buffer",
-    --     opts = {
-    --         search = function ()
-    --             local ok, todo = pcall(require, "todo-comments.config")
-    --             local keywords = ok and table.concat(vim.tbl_keys(todo.keywords), "|")
-    --             return [[\b(]] .. keywords .. [[)\b]]
-    --         end,
-    --         regex = true,
-    --     }
-    -- },
   }
 }

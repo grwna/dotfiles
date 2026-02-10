@@ -2,8 +2,8 @@
 return {
 	{
 		"mason-org/mason-lspconfig.nvim",
-        enabled = not vim.g.vscode,
-		event = { "BufReadPre", "BufNewFile" },
+        enabled = not vim.g.vscode and not vim.g.disable_lsp,
+		event = {"BufReadPre", "BufNewFile"},
 		cmd = { "Mason" },
 		opts = {
 			ensure_installed = {
