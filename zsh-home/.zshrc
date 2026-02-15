@@ -1,4 +1,4 @@
-# STARTUP
+i STARTUP
 # eval $(ssh-agent -k)
 # eval $(ssh-agent -s)
 # eval $(keychain --eval --quiet grwna-rsa)
@@ -141,7 +141,7 @@ bindkey -M visual 'mn' deactivate-region
 export KEYTIMEOUT=15
 
 # CUSTOM SCRIPTS
-source ~/Script/install-log.sh
+source ~/.scripts/install-log.sh
 
 # CUSTOM FUNCTIONS
 source ~/Ricing/zsh/functions.rice
@@ -150,7 +150,6 @@ source ~/Ricing/zsh/functions.rice
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
 alias logi='nvim ~/info/installed_packages.log'
-alias svim='cvim ~/.config/cleanvim'
 
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'
 alias cghidra='rm ~/File-ghidra/*'
@@ -168,6 +167,7 @@ alias nazi='cat ~/.home/principle.txt'
 alias zrm='find . -type f -name "*Zone.Identifier" -print -delete'
 alias rm='rm -i'
 alias cls='clear'
+alias tks='tmux kill-session'
 
 # application run
 alias lg='lazygit'
@@ -176,6 +176,7 @@ alias agy='antigravity'
 alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
 alias tmuxp='tmuxp_script'
+alias nvimre='nvim --cmd "let g:disable_lsp=1"'
 
 # dev work
 alias brd='bun run dev'
@@ -188,7 +189,7 @@ alias cnapp='bunx create-next-app@latest'
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
-export PATH="$PATH:/home/grwna/Script"
+export PATH="$PATH:/home/grwna/.scripts"
 export BROWSER=wslview
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
