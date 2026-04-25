@@ -2,7 +2,7 @@ return {
     {
         -- https://github.com/yetone/avante.nvim
         "yetone/avante.nvim",
-        enabled = not vim.g.vscode,
+        enabled = false and not vim.g.vscode,
         lazy = true,
         version = false,
         build = "make",

@@ -13,7 +13,7 @@ return {
 				-- relative path
 				local path = vim.fn.expand("%:.~")
 				-- Replace '/' with ' > '
-				local breadcrumb = path:gsub("/", " > ")
+				local breadcrumb = path:gsub("/", "  ")
                 local max_len = 40
                 if #breadcrumb > max_len then
                     return "..." .. string.sub(breadcrumb, -37)

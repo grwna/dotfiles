@@ -4,66 +4,77 @@
 -- indent-lines
 -- pickers (telescope)
 return {
-    {
-        "folke/snacks.nvim",
-        priority = 1000,
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    event = "VeryLazy",
+    ---@type snacks.Config
+    opts = {
+      -- core utillities
+      bigfile = { enabled = true },
+      quickfile = { enabled = true },
+      bufdelete = { enabled = true }, -- close buffers without closing windows
+      scope = { enabled = true },
+      git = { enabled = true },
+      gitbrowse = { enabled = true }, -- quickly open lines in github
+      lazygit = { enabled = true },
+      rename = { enabled = true }, -- file renames (imports or references)
+      words = { enabled = true }, -- highlights references of the word under cursor
+
+      -- UI
+      picker = require("config.snacks.picker"),
+      -- dashboard = require("config.snacks.notifier"),
+      indent = { enabled = true },
+      input = { enabled = true },
+      notifier = { enabled = true },
+      -- statuscolumn = {enabled = true},
+      -- explorer = {enabled = true},
+      -- terminal = {enabled = true},
+      toggle = { enabled = true }, -- add toggles logic
+
+      -- other utillities
+      -- animate = {enabled = true},
+      -- scroll = {enabled = true},
+      -- dim = {enabled = true},
+      -- zen = {enabled = true},
+      -- image = {enabled = true},
+      -- profiler = {enabled = true},
+      -- debug = {enabled = true},
+      -- scratch = {enabled = true},
+    },
+
+    keys = {
+      { "<leader>ft", function() Snacks.picker.pickers() end, desc = "List All Pickers", },
+      { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files", },
+      { "<leader>fF", function() Snacks.picker.git_files() end, desc = "Find Git Files", },
+      { "<leader>fg", function() Snacks.picker.grep() end, desc = "Find Text", },
+      { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = "Find Text in Buffers", },
+      { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Find Buffers", },
+      { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume Picker", },
+      { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks List", },
+      { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List", },
+      { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List", },
+      { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List", },
+      { "<leader>fh", function() Snacks.picker.help() end, desc = "Help List", },
+
+      -- Extra Keys
+      -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
+      { "<leader>bdd", function() Snacks.bufdelete() end, desc = "Delete Buffer", },
+      { "<leader>bdo", function() Snacks.bufdelete.other() end, desc = "Delete All Other Buffer", },
+      { "<leader>lg", function() Snacks.lazygit() end, desc = "Open Lazygit", },
+    },
+
+    dependencies = {
+      {
+        "folke/todo-comments.nvim",
         event = "VeryLazy",
-        ---@type snacks.Config
-        opts = {
-            -- core utillities
-            bigfile = { enabled = true},
-            quickfile = {enabled = true},
-            bufdelete = {enabled = true}, -- close buffers without closing windows
-            scope = {enabled = true},
-            git = {enabled = true},
-            gitbrowse = {enabled = true}, -- quickly open lines in github
-            lazygit = {enabled = true},
-            rename = {enabled = true}, -- file renames (imports or references)
-            words = {enabled = true},  -- highlights references of the word under cursor
-
-            -- UI
-            picker = require("config.snacks.picker"),
-            -- dashboard = require("config.snacks.notifier"),
-            indent = {enabled = true},
-            input = {enabled = true},
-            notifier = {enabled = true},
-            -- statuscolumn = {enabled = true},
-            -- explorer = {enabled = true},
-            -- terminal = {enabled = true},
-            toggle = {enabled = true}, -- add toggles logic
-
-            -- other utillities
-            -- animate = {enabled = true},
-            -- scroll = {enabled = true},
-            -- dim = {enabled = true},
-            -- zen = {enabled = true},
-            -- image = {enabled = true},
-            -- profiler = {enabled = true},
-            -- debug = {enabled = true},
-            -- scratch = {enabled = true},
-
+        version = "*",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-mini/mini.icons",
         },
-
-        keys = {
-            { "<leader>ft", function() Snacks.picker.pickers() end, desc = "List All Pickers" },
-            { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
-            { "<leader>fF", function() Snacks.picker.git_files() end, desc = "Find Git Files" },
-            { "<leader>fg", function() Snacks.picker.grep() end, desc = "Find Text" },
-            { "<leader>fG", function() Snacks.picker.grep_buffers() end, desc = "Find Text in Buffers" },
-            { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Find Buffers" },
-            { "<leader>fr", function() Snacks.picker.resume() end, desc = "Resume Picker" },
-            { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks List" },
-            { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List" },
-            { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-            { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-            { "<leader>fh", function() Snacks.picker.help() end, desc = "Help List" },
-            
-            -- Extra Keys
-            -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
-            { "<leader>bdd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
-            { "<leader>bdo", function() Snacks.bufdelete.other() end, desc = "Delete All Other Buffer" },
-            { "<leader>lg", function() Snacks.lazygit() end, desc = "Open Lazygit" },
-
-          }
-    }
+        opts = {},
+      },
+    },
+  },
 }

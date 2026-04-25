@@ -5,11 +5,11 @@ return {
 		opts = {
 			header = "random",
 			use_default = false,
-			user_path = vim.fn.stdpath("config") .. "/lua/config/art",
+			user_path = "~/.config/nvim/lua/config/art",
 		},
-        keys = {
-            {"<leader>zz", "<cmd>:AlphaAsciiNext<cr>" , desc = "Next Header"},
-        }
+		keys = {
+			{ "<leader>zz", "<cmd>:AlphaAsciiNext<cr>", desc = "Next Header" },
+		},
 	},
 	{
 		"goolord/alpha-nvim",
@@ -27,7 +27,8 @@ return {
 			local ok, ascii = pcall(require, "alpha-ascii")
 
 			if ok then
-				dashboard.section.header.val = ascii.get_header()
+				local header_data = ascii.get_header()
+				dashboard.section.header.val = header_data
 			end
 
 			dashboard.section.buttons.val = {
@@ -60,6 +61,12 @@ return {
 				{ type = "padding", val = 2 },
 				dashboard.section.header,
 				{ type = "padding", val = 2 },
+                {
+                    type = "text",
+                    val = require('config.art.title'),
+                    opts = {hl ="@annotation", position = "center"},
+                },
+				{ type = "padding", val = 2 },
 				datetime,
 				{ type = "padding", val = 1 },
 				top_border,
@@ -78,6 +85,12 @@ return {
 			}
 
 			alpha.setup(dashboard.config)
+
+			 vim.schedule(function ()
+			     if vim.bo.filetype == "alpha" then
+			         vim.cmd("AlphaAsciiRandom")
+			     end
+			end)
 		end,
 	},
 }

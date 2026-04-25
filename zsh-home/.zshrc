@@ -1,4 +1,4 @@
-i STARTUP
+# STARTUP
 # eval $(ssh-agent -k)
 # eval $(ssh-agent -s)
 # eval $(keychain --eval --quiet grwna-rsa)
@@ -183,6 +183,8 @@ alias brd='bun run dev'
 alias shadd='bunx shadcn@latest add'
 alias shinit='bunx shadcn@latest init'
 alias cnapp='bunx create-next-app@latest'
+alias nrd='npm run dev'
+alias aenv='source .venv/bin/activate'
 
 
 # ========================= INSTALLATIONS =========================
@@ -210,3 +212,15 @@ alias sfnm='eval "$(fnm env --use-on-cd --shell zsh)"'
 
 # tmuxp
 export DISABLE_AUTO_TITLE='true'
+
+gem(){
+    gemini "@"
+    echo "Killing MCP Ports..."
+    # drawio
+    sudo fuser -k 3333/tcp 2>/dev/null
+    # workspace
+    sudo fuser -k 8000/tcp 2>/dev/null
+}
+
+# opencode
+export PATH=/home/grwna/.opencode/bin:$PATH

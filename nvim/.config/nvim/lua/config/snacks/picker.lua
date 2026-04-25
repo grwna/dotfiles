@@ -1,11 +1,11 @@
-local picker_dropdown = {layout = { preset = "dropdown"}}
-local picker_ivy = {layout = { preset = "ivy_split"}}
-local picker_right = {layout = { preset = "right"}}
-local picker_select = {layout = { preset = "select"}}
+local picker_dropdown = { layout = { preset = "dropdown" } }
+local picker_ivy = { layout = { preset = "ivy_split" } }
+local picker_right = { layout = { preset = "right" } }
+local picker_select = { layout = { preset = "select" } }
 
 local grep_settings = {
   layout = { preset = "ivy_split" },
-  args = { "--fixed-strings" }, 
+  args = { "--fixed-strings" },
 }
 
 return {
@@ -33,15 +33,15 @@ return {
     preset = "ivy_split",
     preview = "main", -- preview as the main
   },
-  
-    args = {"--fixed-strings"},
 
-    formatters = {
-        file = {
-            filename_first = "left",
-            truncate = 80,
-        },
+  args = { "--fixed-strings" },
+
+  formatters = {
+    file = {
+      filename_first = "left",
+      truncate = 80,
     },
+  },
   -- Per-Source Configuration
   sources = {
     -- dropdowns
@@ -67,8 +67,10 @@ return {
 
     man = picker_right,
     help = picker_right,
-    -- todo_comments = picker_right,
-    buffers = {layout = {preset = "left"}},
+    todo_comments = {
+      -- args = { "" },
+    },
+    buffers = { layout = { preset = "left" } },
 
     autocmds = picker_select,
     command_history = picker_select,
@@ -78,10 +80,10 @@ return {
     keymaps = picker_ivy,
 
     pickers = {
-        layout = {
-                preset = "dropdown",
-                preview = false,
-            }
-        },
-  }
+      layout = {
+        preset = "dropdown",
+        preview = false,
+      },
+    },
+  },
 }
