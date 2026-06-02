@@ -24,7 +24,9 @@ return {
 			require("mason-lspconfig").setup(opts)
 
 			vim.diagnostic.config({
-				virtual_text = true,
+				virtual_text = {
+					severity = { min = vim.diagnostic.severity.ERROR },
+				},
 				underline = true,
 			})
 
@@ -70,6 +72,19 @@ return {
 						}
 					}
 				end
+
+                if lsp_name == "basedpyright" then
+                    config.settings = {
+                        basedpyright = {
+                            analysis = {
+                                typeCheckingMode = "off", 
+                            },
+                        },
+                    }
+                    config.handlers = {
+                        ["textDocument/publishDiagnostics"] = function() end,
+                    }
+                end
 
 				-- Only setup if lspconfig actually has the configuration
 				if is_supported(lsp_name) then

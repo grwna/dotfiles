@@ -172,11 +172,11 @@ alias tks='tmux kill-session'
 # application run
 alias lg='lazygit'
 alias wex='explorer.exe'
-alias agy='antigravity'
 alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
 alias tmuxp='tmuxp_script'
 alias nvimre='nvim --cmd "let g:disable_lsp=1"'
+alias egy='antigravity .'
 
 # dev work
 alias brd='bun run dev'
@@ -192,6 +192,7 @@ export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
 export PATH="$PATH:/home/grwna/.scripts"
+export PATH="$PATH:/home/grwna/Installed/sonar-scanner/bin/"
 export BROWSER=wslview
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -224,3 +225,14 @@ gem(){
 
 # opencode
 export PATH=/home/grwna/.opencode/bin:$PATH
+# Add these lines to the bottom of your ~/.bashrc
+export GOROOT=$HOME/lib/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
+export PATH=/usr/local/cuda-13/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda-13/lib64:$LD_LIBRARY_PATH
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/grwna/.local/bin:$PATH"
