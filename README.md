@@ -13,7 +13,7 @@ Note that my main workflow
 └── [installable configs]
 ```
 - others: contains customization/ricing related things that are not configs
-- windows: contains configs for my Windows setup
+- uninstallable: contains configs that are uninstallable using stow (Windows, VSCode, etc.)
 
 ## 📖 how to use
 An automated installation script is provided that uses stow to create symlinks for specific configurations to their appropriate locations. 

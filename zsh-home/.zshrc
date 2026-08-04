@@ -150,6 +150,7 @@ source ~/Ricing/zsh/functions.rice
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
 alias logi='nvim ~/info/installed_packages.log'
+alias vault='nvimre ~/.home/vault.txt'
 
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'
 alias cghidra='rm ~/File-ghidra/*'
@@ -171,7 +172,8 @@ alias tks='tmux kill-session'
 
 # application run
 alias lg='lazygit'
-alias wex='explorer.exe'
+alias wex='/mnt/c/Windows/explorer.exe'
+alias code='/mnt/d/RaFa/Main/Program/Microsoft\ VS\ Code/bin/code'
 alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
 alias tmuxp='tmuxp_script'
@@ -185,6 +187,12 @@ alias shinit='bunx shadcn@latest init'
 alias cnapp='bunx create-next-app@latest'
 alias nrd='npm run dev'
 alias aenv='source .venv/bin/activate'
+
+# PERTAMINA
+alias airenv="source ~/.airflow-venv/bin/activate"
+
+# ========================= CUSTOM ENV ===========================
+export CHEATSHEET_PATH="$HOME/.scripts/dependencies/cheatsheets/"
 
 
 # ========================= INSTALLATIONS =========================
@@ -223,8 +231,6 @@ gem(){
     sudo fuser -k 8000/tcp 2>/dev/null
 }
 
-# opencode
-export PATH=/home/grwna/.opencode/bin:$PATH
 # Add these lines to the bottom of your ~/.bashrc
 export GOROOT=$HOME/lib/go
 export GOPATH=$HOME/go
@@ -236,3 +242,9 @@ export LD_LIBRARY_PATH=/usr/local/cuda-13/lib64:$LD_LIBRARY_PATH
 
 # Added by Antigravity CLI installer
 export PATH="/home/grwna/.local/bin:$PATH"
+export AIRFLOW_HOME=~/Installed/airflow
+
+# opencode
+export PATH=/home/grwna/.opencode/bin:$PATH
+
+[ -f "/home/grwna/.ghcup/env" ] && . "/home/grwna/.ghcup/env" # ghcup-env

@@ -7,10 +7,12 @@
 EXCLUDED_DIRS=(
     "others"
     "vscode"
+    "uninstallable"
 )
 
 # Ensure we are in the correct directory
-cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+# cd "$(dirname "${BASH_SOURCE[0]}")" || exit 1
+cd "$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")" || exit 1
 
 is_excluded() {
     local dir_name="$1"
@@ -49,7 +51,7 @@ install_config() {
     fi
 
     echo "  -> Stowing: $package"
-    stow -v -R -t ~ "$package"
+    stow -v -R -t "$HOME" "$package"
 }
 
 # ==========================
