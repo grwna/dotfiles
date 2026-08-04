@@ -15,6 +15,7 @@ return {
 				"emmet_language_server",
                 "tailwindcss",
                 "cssls",
+                "hls"
 			},
 			automatic_installation = true,
 		},
