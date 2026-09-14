@@ -1,14 +1,13 @@
 #!/bin/bash
 #
-# --- Automatic Package Install Logger for apt and pacman ---
+# --- Automatic Package Install Logger for sudo (apt/pacman/yay), pip, and npm ---
 #
-# This script defines a function that overrides the `sudo` command.
-# When you run `sudo apt install ...` or `sudo pacman -S ...`, it logs
-# the package names to a file before running the actual command.
+# This script defines wrapper functions that intercept package installation commands
+# and log the package names to a centralized file before running the actual command.
 #
-# To use it, add the entire function to your ~/.bashrc or ~/.zshrc file,
+# To use it, add the functions to your ~/.bashrc or ~/.zshrc file,
 # or save this file and source it from your shell configuration.
-# Example: add `source /path/to/this/install_logger.sh` to ~/.bashrc
+# Example: add `source /path/to/this/install-log.sh` to ~/.bashrc
 
 sudo() {
     # --- CONFIGURATION ---
@@ -16,10 +15,9 @@ sudo() {
     # Using ~/.local/share/ is a good practice to avoid cluttering your home directory.
     local LOG_FILE="$HOME/info/installed_packages.log"
 
-    # --- SCRIPT LOGIC (No need to edit below this line) ---
-
+    # --- SCRIPT LOGIC ---
     # Ensure the directory for the log file exists.
-    # The -p flag creates parent directories if they don't exist.
+    # The -p flag creates parent directories if they do not exist.
     mkdir -p "$(dirname "$LOG_FILE")"
 
     local should_log_packages=false
@@ -30,15 +28,15 @@ sudo() {
     if [[ ("$1" == "apt" || "$1" == "apt-get") && "$2" == "install" ]]; then
         should_log_packages=true
         package_manager_name="apt"
-        # Get all arguments starting from the 3rd one (the package names).
+        # Extract package arguments after command and action.
         packages_to_log=("${@:3}")
 
     # Check if the command is for pacman/yay and contains the -S (Sync) flag.
-    # This uses regex to catch -S, -Sy, -Syu, etc., as long as the arg starts with '-'.
+    # Matches flags starting with '-' that contain 'S' (e.g., -S, -Sy, -Syu).
     elif [[ ("$1" == "pacman" || "$1" == "yay") && "$2" =~ ^- && "$2" =~ S ]]; then
         should_log_packages=true
         package_manager_name="$1" # Dynamically set to 'pacman' or 'yay'
-        # Get all arguments starting from the 3rd one (the package names).
+        # Extract package arguments after command and action.
         packages_to_log=("${@:3}")
     fi
 
@@ -46,47 +44,152 @@ sudo() {
     if [ "$should_log_packages" = true ]; then
         echo "--> Logging packages to $LOG_FILE"
         for package in "${packages_to_log[@]}"; do
-            # This check filters out arguments that start with a '-',
-            # such as '-y' or '--force', so only package names are logged.
+            # Filter out arguments that start with '-', such as '-y' or '--force'.
             if [[ ! "$package" =~ ^- ]]; then
-                # The log entry format is: Timestamp - Package Manager - Package Name
+                # Log format: Timestamp | Package Manager | Package Name
                 echo "$(date '+%Y-%m-%d %H:%M:%S') | $package_manager_name | $package" >>"$LOG_FILE"
             fi
         done
     fi
 
     # --- EXECUTION ---
-    # This is the most important part: it executes the original command.
-    # `command sudo` ensures we call the real sudo program and not this function,
-    # which prevents an infinite loop.
+    # Execute the original sudo command.
     command sudo "$@"
 }
 
-# --- LOGGER FOR PYTHON PACKAGES (pip) ---
-pip() {
-    # Ensure the directory for the log file exists.
+# --- LOGGER HELPER FOR PYTHON PACKAGES (pip / pip3) ---
+_log_pip_packages() {
+    local pm_name="$1"
+    shift
     local LOG_FILE="$HOME/info/installed_packages.log"
     mkdir -p "$(dirname "$LOG_FILE")"
 
-    # Check if the command is 'pip install'. This will also work for 'pip3'.
-    if [[ "$1" == "install" ]]; then
-        echo "--> Logging pip packages to $LOG_FILE"
-        # Use `basename` on `$0` to correctly identify if 'pip' or 'pip3' was used.
-        local package_manager_name
-        package_manager_name=$(basename "$0")
-        
-        # Get all arguments from the 2nd one onwards.
-        local packages_to_log=("${@:2}")
+    local is_install=false
+    local is_global=false
+    local prev_arg=""
+    local packages_to_log=()
 
+    for arg in "$@"; do
+        if [[ "$arg" == "install" ]]; then
+            is_install=true
+            continue
+        fi
+
+        # Check for flags indicating global or user-level installation.
+        case "$arg" in
+            --user|--break-system-packages|--system|--global)
+                is_global=true
+                continue
+                ;;
+            --root|--prefix|--target|-t)
+                is_global=true
+                prev_arg="$arg"
+                continue
+                ;;
+            --root=*|--prefix=*|--target=*)
+                is_global=true
+                continue
+                ;;
+        esac
+
+        # Skip values corresponding to options that take parameters.
+        case "$prev_arg" in
+            -r|-c|-t|--target|--prefix|--root|-i|--index-url|--extra-index-url|-f|--find-links|-b|--build|--src)
+                prev_arg=""
+                continue
+                ;;
+        esac
+
+        case "$arg" in
+            -r|-c|-i|--index-url|--extra-index-url|-f|--find-links|-b|--build|--src)
+                prev_arg="$arg"
+                continue
+                ;;
+        esac
+
+        # Filter out flags, relative/absolute paths, requirements files, wheels, and archives.
+        if [[ ! "$arg" =~ ^- && "$arg" != "." && "$arg" != *".txt"* && "$arg" != *"/"* && "$arg" != *".whl"* && "$arg" != *".tar.gz"* && "$arg" != *".tgz"* ]]; then
+            packages_to_log+=("$arg")
+        fi
+    done
+
+    # Only log if running an install command with global/user flags.
+    if [[ "$is_install" = true && "$is_global" = true && ${#packages_to_log[@]} -gt 0 ]]; then
+        echo "--> Logging $pm_name packages to $LOG_FILE"
         for package in "${packages_to_log[@]}"; do
-            # Filter out flags (e.g., -r, --user, --upgrade) and file paths.
-            # This prevents logging 'requirements.txt' or '.' as a package name.
-            if [[ ! "$package" =~ ^- && "$package" != "." && "$package" != *".txt"* && "$package" != *"/"* ]]; then
-                echo "$(date '+%Y-%m-%d %H:%M:%S') | $package_manager_name | $package" >>"$LOG_FILE"
-            fi
+            echo "$(date '+%Y-%m-%d %H:%M:%S') | $pm_name | $package" >>"$LOG_FILE"
         done
     fi
+}
 
-    # Execute the original pip command, preventing an infinite loop.
+pip() {
+    _log_pip_packages "pip" "$@"
     command pip "$@"
+}
+
+pip3() {
+    _log_pip_packages "pip3" "$@"
+    command pip3 "$@"
+}
+
+# --- LOGGER FOR NODE PACKAGES (npm) ---
+_log_npm_packages() {
+    local pm_name="npm"
+    local LOG_FILE="$HOME/info/installed_packages.log"
+    mkdir -p "$(dirname "$LOG_FILE")"
+
+    local is_install=false
+    local is_global=false
+    local prev_arg=""
+    local packages_to_log=()
+
+    for arg in "$@"; do
+        case "$arg" in
+            install|i|add|isntall)
+                is_install=true
+                continue
+                ;;
+            -g|--global|--location=global|-g=true)
+                is_global=true
+                continue
+                ;;
+            --location)
+                prev_arg="--location"
+                continue
+                ;;
+            --prefix|--registry|--tag|--scope)
+                prev_arg="$arg"
+                continue
+                ;;
+        esac
+
+        if [[ "$prev_arg" == "--location" ]]; then
+            if [[ "$arg" == "global" ]]; then
+                is_global=true
+            fi
+            prev_arg=""
+            continue
+        elif [[ -n "$prev_arg" ]]; then
+            prev_arg=""
+            continue
+        fi
+
+        # Filter out flags, paths, urls, archives, json configs, and txt files.
+        if [[ ! "$arg" =~ ^- && "$arg" != "." && "$arg" != ".." && ! "$arg" =~ ^(\./|\.\./|/) && "$arg" != *"://"* && "$arg" != *"git+"* && "$arg" != *".tgz"* && "$arg" != *".tar.gz"* && "$arg" != *".json"* && "$arg" != *".txt"* ]]; then
+            packages_to_log+=("$arg")
+        fi
+    done
+
+    # Only log if running an install command with global flags.
+    if [[ "$is_install" = true && "$is_global" = true && ${#packages_to_log[@]} -gt 0 ]]; then
+        echo "--> Logging npm packages to $LOG_FILE"
+        for package in "${packages_to_log[@]}"; do
+            echo "$(date '+%Y-%m-%d %H:%M:%S') | $pm_name | $package" >>"$LOG_FILE"
+        done
+    fi
+}
+
+npm() {
+    _log_npm_packages "$@"
+    command npm "$@"
 }

@@ -170,15 +170,15 @@ alias rm='rm -i'
 alias cls='clear'
 alias tks='tmux kill-session'
 
-# application run
+# application run custom alias
 alias lg='lazygit'
 alias wex='/mnt/c/Windows/explorer.exe'
 alias code='/mnt/d/RaFa/Main/Program/Microsoft\ VS\ Code/bin/code'
-alias lvim='NVIM_APPNAME=lazyvim nvim'
 alias ff='fastfetch'
 alias tmuxp='tmuxp_script'
 alias nvimre='nvim --cmd "let g:disable_lsp=1"'
-alias egy='antigravity .'
+alias bat='batcat'
+# alias egy='antigravity .'
 
 # dev work
 alias brd='bun run dev'
@@ -192,14 +192,16 @@ alias aenv='source .venv/bin/activate'
 alias airenv="source ~/.airflow-venv/bin/activate"
 
 # ========================= CUSTOM ENV ===========================
-export CHEATSHEET_PATH="$HOME/.scripts/dependencies/cheatsheets/"
+export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
+# ========================= CUSTOM SOURCES ===============
+source "$HOME/.scripts/sh/autocompletions.zsh"
 
 # ========================= INSTALLATIONS =========================
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 export PATH=~/.npm-global/bin:$PATH
 export ANI_CLI_PLAYER=mpv
-export PATH="$PATH:/home/grwna/.scripts"
+export PATH="$PATH:/home/grwna/.scripts/bin"
 export PATH="$PATH:/home/grwna/Installed/sonar-scanner/bin/"
 export BROWSER=wslview
 
