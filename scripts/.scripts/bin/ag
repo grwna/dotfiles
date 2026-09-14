@@ -1,0 +1,103 @@
+#!/bin/bash
+
+set -euo pipefail
+
+SOURCE_DIR="$HOME/.grwna-agents/skills"
+
+show_help() {
+  echo "Usage: ag <command> [arguments]"
+  echo ""
+  echo "Commands:"
+  echo "  cp [agent]  Copy skills to the current project's agent configuration directory."
+  echo "  list        List all available skills in the source directory."
+  echo "  help        Show this help message."
+}
+
+list_skills() {
+  if [ ! -d "$SOURCE_DIR" ]; then
+    echo "Error: Source skills directory '$SOURCE_DIR' does not exist."
+    exit 1
+  fi
+  
+  echo "Available skills:"
+  # Finds all non-hidden directories, extracts just the basename, and sorts them alphabetically
+  find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 ! -name '.*' -type d -exec basename {} \; | sort
+}
+
+copy_skills() {
+  local TARGET_AGENT="${1:-}"
+
+  # Interactive prompt if no parameter is provided
+  if [ -z "$TARGET_AGENT" ]; then
+    read -rp "Enter target agent [claude, codex, antigravity, opencode] (leave empty for default): " INPUT_AGENT
+    TARGET_AGENT="${INPUT_AGENT:-default}"
+  fi
+
+  # Determine target directory based on the agent parameter
+  local TARGET_DIR=""
+  case "$TARGET_AGENT" in
+    claude)      TARGET_DIR="./.claude/skills" ;;
+    codex)       TARGET_DIR="./.codex/skills" ;;
+    antigravity) TARGET_DIR="./.agents/skills" ;;
+    opencode)    TARGET_DIR="./.opencode/skills" ;;
+    default)     TARGET_DIR="./.agents/skills" ;;
+    *)
+      echo "Error: Unknown agent '$TARGET_AGENT'."
+      echo "Supported agents: claude, codex, antigravity, opencode"
+      exit 1
+      ;;
+  esac
+
+  # Validate source directory existence
+  if [ ! -d "$SOURCE_DIR" ]; then
+    echo "Error: Source skills directory '$SOURCE_DIR' does not exist."
+    exit 1
+  fi
+
+  # Prompt for specific skills
+  read -rp "Enter skills to install (space-separated, leave empty for all): " SKILLS_INPUT
+
+  mkdir -p "$TARGET_DIR"
+
+  if [ -z "$SKILLS_INPUT" ]; then
+    echo "No specific skills provided. Copying all non-hidden skills..."
+    find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 ! -name '.*' -exec cp -rL {} "$TARGET_DIR/" \;
+  else
+    # Parse space-separated string into an array
+    read -ra SKILLS_ARRAY <<< "$SKILLS_INPUT"
+    
+    for skill in "${SKILLS_ARRAY[@]}"; do
+      local SKILL_PATH="$SOURCE_DIR/$skill"
+      
+      if [ -e "$SKILL_PATH" ]; then
+        cp -rL "$SKILL_PATH" "$TARGET_DIR/"
+        echo "Copied '$skill'."
+      else
+        echo "Warning: Skill '$skill' does not exist in '$SOURCE_DIR'. Skipping."
+      fi
+    done
+  fi
+
+  echo "Successfully copied skills files to '$TARGET_DIR' for agent '$TARGET_AGENT'."
+}
+
+# Subcommand router
+COMMAND="${1:-help}"
+
+case "$COMMAND" in
+  cp)
+    # Pass the second argument (if any) to the copy_skills function
+    copy_skills "${2:-}"
+    ;;
+  list)
+    list_skills
+    ;;
+  help)
+    show_help
+    ;;
+  *)
+    echo "Error: Unknown command '$COMMAND'."
+    show_help
+    exit 1
+    ;;
+esac

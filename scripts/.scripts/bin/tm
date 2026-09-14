@@ -1,16 +1,21 @@
 #!/bin/bash
 
-BASE_DIR="$CHEATSHEET_PATH"
+BASE_DIR="$HOME/.scripts/dependencies/templates/"
+
+show_templates(){
+    echo "--- Available templates ---"
+    ls "$BASE_DIR" | sed 's/\.[^.]*$//' 
+}
 
 if [ ! -d "$BASE_DIR" ]; then
     echo "Error: $BASE_DIR does not exist."
 fi
 
+
 # argument check
 if [ -z "$1" ]; then
-    echo "Usage: cs <topic>"
-    echo "--- Available sheets ---"
-    ls "$BASE_DIR" | grep '\.md$' | sed 's/\.md$//' | column
+    echo "Usage: tm <topic>"
+    show_templates
     exit 1
 fi
 
@@ -19,9 +24,8 @@ fi
 FILE=$(find -L "$BASE_DIR" -maxdepth 1 -iname "$1.md" -type f | head -n 1)
 
 if [ -n "$FILE" ]; then
-    less -R "$FILE"
+    cat "$FILE"
 else
-    echo "No cheatsheet found for '$1' in $BASE_DIR"
-    echo "--- Available sheets ---"
-    ls "$BASE_DIR" | grep '\.md$' | sed 's/\.md$//' | column
+    echo "No templates found for '$1' in $BASE_DIR"
+    show_templates
 fi
