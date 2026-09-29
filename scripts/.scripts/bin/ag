@@ -4,13 +4,28 @@ set -euo pipefail
 
 SOURCE_DIR="$HOME/.grwna-agents/skills"
 
+# Define your default preset skills here
+PRESET_SKILLS=(
+  "brainstorming"
+  "systematic-debugging"
+  "test-driven-development"
+  "verification-before-completion"
+  "writing-plans"
+  "executing-plans"
+)
+
 show_help() {
-  echo "Usage: ag <command> [arguments]"
+  echo "Usage: ag <command> [options]"
   echo ""
   echo "Commands:"
-  echo "  cp [agent]  Copy skills to the current project's agent configuration directory."
-  echo "  list        List all available skills in the source directory."
-  echo "  help        Show this help message."
+  echo "  cp [agent] [options]  Copy skills to the current project's agent configuration directory."
+  echo "  list                  List all available skills in the source directory."
+  echo "  help                  Show this help message."
+  echo ""
+  echo "Options for 'cp':"
+  echo "  -p, --preset          Copy predefined default skills list."
+  echo "  -s, --skills \"a b\"   Specify space-separated skills via argument."
+  echo "  -a, --all             Copy all available skills."
 }
 
 list_skills() {
@@ -20,20 +35,49 @@ list_skills() {
   fi
   
   echo "Available skills:"
-  # Finds all non-hidden directories, extracts just the basename, and sorts them alphabetically
   find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 ! -name '.*' -type d -exec basename {} \; | sort
 }
 
 copy_skills() {
-  local TARGET_AGENT="${1:-}"
+  local TARGET_AGENT=""
+  local MODE="" # "all", "preset", or "custom"
+  local SKILLS_INPUT=""
 
-  # Interactive prompt if no parameter is provided
+  # Parse arguments for `cp`
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -p|--preset)
+        MODE="preset"
+        shift
+        ;;
+      -a|--all)
+        MODE="all"
+        shift
+        ;;
+      -s|--skills)
+        MODE="custom"
+        SKILLS_INPUT="$2"
+        shift 2
+        ;;
+      claude|codex|antigravity|opencode|default)
+        TARGET_AGENT="$1"
+        shift
+        ;;
+      *)
+        echo "Error: Unknown argument '$1'."
+        show_help
+        exit 1
+        ;;
+    esac
+  done
+
+  # Fallback to interactive prompt if target agent is not passed via CLI
   if [ -z "$TARGET_AGENT" ]; then
     read -rp "Enter target agent [claude, codex, antigravity, opencode] (leave empty for default): " INPUT_AGENT
     TARGET_AGENT="${INPUT_AGENT:-default}"
   fi
 
-  # Determine target directory based on the agent parameter
+  # Determine target directory
   local TARGET_DIR=""
   case "$TARGET_AGENT" in
     claude)      TARGET_DIR="./.claude/skills" ;;
@@ -41,53 +85,74 @@ copy_skills() {
     antigravity) TARGET_DIR="./.agents/skills" ;;
     opencode)    TARGET_DIR="./.opencode/skills" ;;
     default)     TARGET_DIR="./.agents/skills" ;;
-    *)
-      echo "Error: Unknown agent '$TARGET_AGENT'."
-      echo "Supported agents: claude, codex, antigravity, opencode"
-      exit 1
-      ;;
   esac
 
-  # Validate source directory existence
   if [ ! -d "$SOURCE_DIR" ]; then
     echo "Error: Source skills directory '$SOURCE_DIR' does not exist."
     exit 1
   fi
 
-  # Prompt for specific skills
-  read -rp "Enter skills to install (space-separated, leave empty for all): " SKILLS_INPUT
+  # Fallback to interactive prompt if mode was not selected via flags
+  if [ -z "$MODE" ]; then
+    echo "Installation mode:"
+    echo "  1) All skills"
+    echo "  2) Default Preset (${PRESET_SKILLS[*]})"
+    echo "  3) Custom selection"
+    read -rp "Select option [1/2/3] (default: 1): " CHOICE
+
+    case "$CHOICE" in
+      2) MODE="preset" ;;
+      3) 
+        MODE="custom"
+        read -rp "Enter skills to install (space-separated): " SKILLS_INPUT
+        ;;
+      *) MODE="all" ;;
+    esac
+  fi
 
   mkdir -p "$TARGET_DIR"
 
-  if [ -z "$SKILLS_INPUT" ]; then
-    echo "No specific skills provided. Copying all non-hidden skills..."
-    find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 ! -name '.*' -exec cp -rL {} "$TARGET_DIR/" \;
-  else
-    # Parse space-separated string into an array
-    read -ra SKILLS_ARRAY <<< "$SKILLS_INPUT"
-    
-    for skill in "${SKILLS_ARRAY[@]}"; do
-      local SKILL_PATH="$SOURCE_DIR/$skill"
-      
-      if [ -e "$SKILL_PATH" ]; then
-        cp -rL "$SKILL_PATH" "$TARGET_DIR/"
-        echo "Copied '$skill'."
-      else
-        echo "Warning: Skill '$skill' does not exist in '$SOURCE_DIR'. Skipping."
-      fi
-    done
-  fi
+  # Execute copy based on selected mode
+  case "$MODE" in
+    all)
+      echo "Copying all non-hidden skills..."
+      find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 ! -name '.*' -exec cp -rL {} "$TARGET_DIR/" \;
+      ;;
+    preset)
+      echo "Copying preset skills..."
+      for skill in "${PRESET_SKILLS[@]}"; do
+        local SKILL_PATH="$SOURCE_DIR/$skill"
+        if [ -e "$SKILL_PATH" ]; then
+          cp -rL "$SKILL_PATH" "$TARGET_DIR/"
+          echo "Copied preset skill '$skill'."
+        else
+          echo "Warning: Preset skill '$skill' does not exist in '$SOURCE_DIR'. Skipping."
+        fi
+      done
+      ;;
+    custom)
+      read -ra SKILLS_ARRAY <<< "$SKILLS_INPUT"
+      for skill in "${SKILLS_ARRAY[@]}"; do
+        local SKILL_PATH="$SOURCE_DIR/$skill"
+        if [ -e "$SKILL_PATH" ]; then
+          cp -rL "$SKILL_PATH" "$TARGET_DIR/"
+          echo "Copied '$skill'."
+        else
+          echo "Warning: Skill '$skill' does not exist in '$SOURCE_DIR'. Skipping."
+        fi
+      done
+      ;;
+  esac
 
   echo "Successfully copied skills files to '$TARGET_DIR' for agent '$TARGET_AGENT'."
 }
 
-# Subcommand router
 COMMAND="${1:-help}"
 
 case "$COMMAND" in
   cp)
-    # Pass the second argument (if any) to the copy_skills function
-    copy_skills "${2:-}"
+    shift
+    copy_skills "$@"
     ;;
   list)
     list_skills

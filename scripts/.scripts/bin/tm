@@ -21,10 +21,10 @@ fi
 
 # match file with argument
 # -maxdepth 1: Only looks in the base folder 
-FILE=$(find -L "$BASE_DIR" -maxdepth 1 -iname "$1.md" -type f | head -n 1)
+FILE=$(find -L "$BASE_DIR" -maxdepth 1 -iname "$1.*" -type f | head -n 1)
 
 if [ -n "$FILE" ]; then
-    cat "$FILE"
+    batcat -p --paging=never  "$FILE"
 else
     echo "No templates found for '$1' in $BASE_DIR"
     show_templates

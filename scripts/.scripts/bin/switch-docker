@@ -1,0 +1,29 @@
+#!/bin/bash
+
+CURRENT_CONTEXT=$(docker context show 2>/dev/null)
+
+case "$1" in
+    -c|--check)
+        if [[ "$CURRENT_CONTEXT" == "native-wsl" ]]; then
+            echo "Current context: Native WSL (native-wsl)"
+        elif [[ "$CURRENT_CONTEXT" == "desktop-wsl" ]]; then
+            echo "Current context: Docker Desktop (desktop-wsl)"
+        else
+            echo "Current context: $CURRENT_CONTEXT"
+        fi
+        ;;
+    -s|--switch)
+        if [[ "$CURRENT_CONTEXT" == "native-wsl" ]]; then
+            echo "Switching to Docker Desktop..."
+            docker context use desktop-wsl
+        else
+            echo "Switching to Native WSL..."
+            docker context use native-wsl
+        fi
+        ;;
+    *)
+        echo "Usage: switch-docker [OPTIONS]"
+        echo "  -c, --check    Check current Docker context"
+        echo "  -s, --switch   Toggle between Native WSL and Docker Desktop"
+        ;;
+esac

@@ -1,0 +1,7 @@
+services:
+  app:                    
+    image: nginx:alpine   
+    build: .              
+    ports:                
+      - 3000:3000
+

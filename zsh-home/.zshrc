@@ -178,7 +178,10 @@ alias ff='fastfetch'
 alias tmuxp='tmuxp_script'
 alias nvimre='nvim --cmd "let g:disable_lsp=1"'
 alias bat='batcat'
+alias py='python'
+alias dk='docker'
 # alias egy='antigravity .'
+alias opencode='RIPGREP_CONFIG_PATH=.rgrc opencode'
 
 # dev work
 alias brd='bun run dev'
@@ -233,10 +236,11 @@ gem(){
     sudo fuser -k 8000/tcp 2>/dev/null
 }
 
-# Add these lines to the bottom of your ~/.bashrc
-export GOROOT=$HOME/lib/go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+# GO Installation
+export PATH=$PATH:/usr/local/go/bin
+export PATH="$PATH:$(go env GOPATH)/bin"
+ 
+# 
 export LD_LIBRARY_PATH=/usr/lib/wsl/lib:$LD_LIBRARY_PATH
 export PATH=/usr/local/cuda-13/bin:$PATH
 export LD_LIBRARY_PATH=/usr/local/cuda-13/lib64:$LD_LIBRARY_PATH

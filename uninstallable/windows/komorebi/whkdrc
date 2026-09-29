@@ -37,8 +37,8 @@ ctrl + alt + j           : komorebic stack down
 ctrl + alt + k           : komorebic stack up
 ctrl + alt + l           : komorebic stack right
 ctrl + alt + oem_1       : komorebic unstack # oem_1 is ;
-alt shift + oem_comma   : komorebic cycle-stack previous 
-alt shift + oem_period  : komorebic cycle-stack next
+alt + shift + oem_comma   : komorebic cycle-stack previous
+alt + shift + oem_period  : komorebic cycle-stack next
 
 # Resize
 alt + oem_plus          : komorebic resize-axis horizontal increase
@@ -80,6 +80,12 @@ alt + shift + 6         : komorebic move-to-workspace 5
 alt + shift + 7         : komorebic move-to-workspace 6
 alt + shift + 8         : komorebic move-to-workspace 7
 
+
+# Monitors
+alt + w : komorebic focus-monitor 0
+alt + e : komorebic focus-monitor 1
+alt + shift + w : komorebic move-to-monitor 0
+alt + shift + e : komorebic move-to-monitor 1
 
 # List of OEM keys
 # ;	oem_1	
