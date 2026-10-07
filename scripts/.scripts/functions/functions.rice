@@ -1,0 +1,31 @@
+#!/bin/zsh
+function fghidra() {
+    cp "$1" ~/file-ghidra
+}
+
+len() {
+    echo "${#1}"
+}
+
+function init-cdump {
+    echo "echo '/tmp/core.%e.%p' | sudo tee /proc/sys/kernel/core_pattern"
+}
+
+function reset-cdump {
+    echo "|/wsl-capture-crash %t %E %p %s" | sudo tee /proc/sys/kernel/core_pattern
+}
+hexi() {
+    # Check if the first argument is the reverse flag '-r'
+    if [ "$1" = "-r" ]; then
+        # Hex to Decimal: Convert the second argument
+        printf "%d\n" "0x$2"
+    else
+        # Decimal to Hex: Convert the first argument and add '0x' prefix
+        printf "0x%x\n" "$1"
+    fi
+}
+
+portmap() {
+    sudo ss -tulpn | grep ":${1:-}"
+}
+

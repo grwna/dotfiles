@@ -144,7 +144,7 @@ export KEYTIMEOUT=15
 source ~/.scripts/install-log.sh
 
 # CUSTOM FUNCTIONS
-source ~/Ricing/zsh/functions.rice
+source ~/.scripts/functions/functions.rice
 
 # ========================= ALIASES =========================
 alias ebs='nvim ~/.zshrc'
