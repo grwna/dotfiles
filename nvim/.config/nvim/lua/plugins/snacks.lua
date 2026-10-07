@@ -54,8 +54,8 @@ return {
       { "<leader>fm", function() Snacks.picker.marks() end, desc = "Marks List", },
       { "<leader>fj", function() Snacks.picker.jumps() end, desc = "Jump List", },
       { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List", },
-      { "<leader>fq", function() Snacks.picker.qflist() end, desc = "Quickfix List", },
       { "<leader>fh", function() Snacks.picker.help() end, desc = "Help List", },
+      { "<leader>fT", function() require("config.templates").pick() end, desc = "Insert Templates", },
 
       -- Extra Keys
       -- { "<leader>gB", function() Snacks.gitbrowse() end, desc = "Open in Browser" },
