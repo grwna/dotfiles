@@ -149,7 +149,7 @@ source ~/.scripts/functions/functions.rice
 # ========================= ALIASES =========================
 alias ebs='nvim ~/.zshrc'
 alias sbs='source ~/.zshrc'
-alias logi='nvim ~/info/installed_packages.log'
+alias logi='nvim ~/.scripts/dependencies/installed_packages.log'
 alias vault='nvimre ~/.home/vault.txt'
 
 alias ghidra='cmd.exe /c "D:\RaFa\Main\Program\aaProgramming Language And Others\Ghidra\ghidra_11.1.2_PUBLIC\ghidraRun.bat"'

@@ -1,0 +1,114 @@
+2025-10-09 16:55:19 | apt | zoxide
+2025-10-09 17:13:25 | apt | keychain
+2025-10-09 17:15:16 | apt | fzf
+2025-10-09 17:48:48 | apt | openssh-client
+2025-10-09 17:54:09 | apt | openssh-server
+2025-10-09 19:13:55 | apt | lazygit
+2025-10-09 19:59:12 | apt | curl
+2025-10-09 20:32:03 | apt | fastfetch
+2025-10-09 22:07:11 | pip | httpx
+2025-10-10 21:35:41 | pip | fpylll
+2025-10-11 18:00:29 | bin | ani-cli
+2025-10-12 10:03:54 | apt | tshark
+2025-10-12 10:03:54 | apt | gdb-multiarch
+2025-10-12 10:03:54 | apt | binwalk
+2025-10-12 10:03:54 | apt | Ruby
+2025-10-12 10:03:54 | apt | colordiff
+2025-10-15 21:24:54 | deb | sleuthkit         -- installed manually using deb (sudo dpkg -i sleuthkit-java_4.14.0-1_amd64.deb)
+2025-10-15 21:49:43 | apt | openjdk-17-jdk
+2025-10-15 22:13:07 | apt | testdisk
+2025-10-17 14:34:34 | apt | php-pgsql
+2025-10-17 14:34:34 | apt | postgresql
+2025-10-17 14:34:34 | apt | postgresql-contrib
+2025-10-17 19:09:18 | apt | python3-tk
+2025-10-31 15:21:59 | apt | npm
+2025-10-31 19:10:20 | apt | tree
+2025-11-08 16:16:51 | apt | ncat
+2025-11-08 16:25:38 | apt | dosbox
+2025-11-08 16:44:00 | pip | pwntools
+2025-11-10 23:26:10 | apt | hexcurse
+2025-11-12 18:02:28 | apt | apache2
+2025-11-12 18:02:28 | apt | php
+2025-11-12 18:02:28 | apt | libapache2-mod-php
+2025-11-12 18:02:28 | apt | php-mysql
+2025-11-12 18:02:28 | apt | php-gd
+2025-11-12 18:03:58 | apt | phpmyadmin
+2025-11-19 01:47:53 | apt | nodejs
+2025-11-20 23:58:54 | apt | tmux
+2025-11-22 15:36:23 | apt | hashcat
+2025-11-22 16:15:37 | apt | steghide
+2025-11-23 14:21:28 | apt | djvulibre-bin
+2025-11-23 14:21:28 | curl| bun
+2025-12-07 17:02:45 | apt | jq
+2025-12-11 09:00:13 | apt | poppler-utils
+2026-01-01 05:13:25 | snap| snapd
+2026-01-01 05:13:25 | snap| core20
+2026-01-01 05:13:25 | snap| k6
+2026-01-06 15:19:02 | apt | ripgrep
+2026-01-11 21:56:05 | apt | wslu
+2026-01-14 14:44:01 | apt | fd-find
+2026-01-16 20:20:31 | apt | stow
+2026-01-19 20:21:59 | curl| fnm
+2026-01-20 13:00:18 | deb | bottom          -- installed using the ubuntu instructions https://github.com/ClementTsang 
+2026-01-23 14:08:54 | apt | python2
+2026-01-27 23:46:19 | pip | pycryptodome
+2026-02-03 16:21:59 | npm | gemini-cli
+2026-02-04 09:44:03 | pip | tmuxp
+2026-02-14 18:28:11 | pip | img2art
+2026-02-21 18:17:28 | apt | ltrace
+2026-03-06 15:04:06 | gemini | installed google workspace extension (mcp) using uv to run it
+2026-03-06 15:04:06 | curl| uv
+2026-03-06 15:04:06 | curl| uvx
+2026-03-09 21:29:18 | snap| feroxbuster
+2026-03-09 21:30:10 | apt | go
+2026-03-09 21:30:33 | apt | golang-go
+2026-03-25 14:21:09 | apt | gh
+2026-04-10 17:22:31 | pip | pandas
+2026-04-10 17:27:39 | curl| opencode
+2026-04-16 19:58:18 | pip | matplotlib
+2026-04-16 20:01:06 | pip | arjun
+2026-04-21 21:48:47 | apt | cloc
+2026-04-28 05:49:55 | npm | pnpm
+2026-05-16 10:46:59 | pip | pickle
+2026-04-10 17:27:39 | curl| antigravity_cli
+2026-05-31 20:03:45 | lcl | sonar-scanner
+2026-05-31 20:03:45 | npm | @sonar/scan
+2026-06-01 12:41:03 | pip | python-dotenv
+2026-06-12 08:36:44 | apt | pandoc
+2026-06-12 08:44:18 | pip | nbconvert
+2026-06-20 08:20:49 | apt | libglfw3-dev
+2026-06-20 08:20:49 | apt | libgl1-mesa-dev
+2026-06-20 08:20:49 | apt | xorg-dev
+2026-06-22 08:20:49 | uv  | airflow
+2026-06-24 07:39:42 | pip | yfinance
+2026-07-01 07:54:24 | apt | mongodb-mongosh
+2026-07-01 07:58:30 | apt | mongodb-atlas
+2026-07-04 07:58:30 | curl| rtk
+2026-07-06 10:33:26 | apt | clang
+2026-07-19 17:32:25 | apt | chromium (playwright) to /home/grwna/.cache/ms-playwright/
+2026-07-19 17:32:25 | apt | firefox (playwright)
+2026-07-19 17:32:25 | apt | webkit (playwright)
+2026-07-22 17:32:25 | curl| ghcup -- haskell, along with cabal and other stuff
+2026-08-23 12:17:58 | pip | cryptography
+2026-09-03 01:28:03 | apt | snmp
+2026-09-12 18:57:41 | apt | libopencv-dev
+2026-09-14 00:45:21 | apt | bat
+2026-09-16 15:03:03 | apt | cloudflared
+2026-09-18 08:47:02 | apt | docker-ce
+2026-09-18 08:47:02 | apt | docker-ce-cli
+2026-09-18 08:47:02 | apt | containerd.io
+2026-09-18 08:47:02 | apt | docker-buildx-plugin
+2026-09-18 08:47:02 | apt | docker-compose-plugin
+2026-09-24 21:06:43 | apt | gitlab-runner
+2026-09-25 15:22:59 | apt | yt-dlp
+2026-10-09 16:40:47 | pip | markitdown
+2026-10-09 16:40:47 | pip | pymupdf
+2026-10-12 21:53:21 | apt | wamerican
+2026-10-19 21:48:32 | apt | latexmk
+2026-10-19 21:52:22 | apt | texlive-latex-recommended
+2026-10-19 21:52:22 | apt | texlive-latex-extra
+2026-10-19 21:52:22 | apt | texlive-fonts-recommended
+2026-10-19 21:52:22 | apt | texlive-bibtex-extra
+2026-10-19 21:52:22 | apt | biber
+2026-10-19 21:52:22 | apt | texlive-lang-other
+2026-10-20 12:55:40 | apt | chktex

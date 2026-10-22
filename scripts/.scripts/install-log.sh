@@ -13,7 +13,7 @@ sudo() {
     # --- CONFIGURATION ---
     # You can change the path for your log file here if you wish.
     # Using ~/.local/share/ is a good practice to avoid cluttering your home directory.
-    local LOG_FILE="$HOME/info/installed_packages.log"
+    local LOG_FILE="$HOME/.scripts/dependencies/installed_packages.log"
 
     # --- SCRIPT LOGIC ---
     # Ensure the directory for the log file exists.
