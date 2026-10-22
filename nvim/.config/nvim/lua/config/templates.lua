@@ -38,6 +38,18 @@ function M.pick()
       local path = Snacks.picker.util.path(item)
       insert(win, buf, vim.fn.readfile(path))
     end,
+    win = {
+        input = {
+          keys = {
+            ["<C-e>"] = { "edit", mode = { "n", "i" } },
+          },
+        },
+        list = {
+          keys = {
+            ["<C-e>"] = "edit",
+          },
+        },
+      },
   })
 end
 

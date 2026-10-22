@@ -166,6 +166,7 @@ alias pyhton='python3'
 alias nazi='cat ~/.home/principle.txt'
 
 alias zrm='find . -type f -name "*Zone.Identifier" -print -delete'
+alias cpclr='find . -maxdepth 1 -type f ! -name "*.*" -print -delete'
 alias rm='rm -i'
 alias cls='clear'
 alias tks='tmux kill-session'
@@ -181,7 +182,9 @@ alias bat='batcat'
 alias py='python'
 alias dk='docker'
 # alias egy='antigravity .'
+alias oc='opencode'
 alias opencode='RIPGREP_CONFIG_PATH=.rgrc opencode'
+
 
 # dev work
 alias brd='bun run dev'

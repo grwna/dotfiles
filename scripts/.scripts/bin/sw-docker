@@ -1,0 +1,53 @@
+#!/bin/bash
+
+CURRENT_CONTEXT=$(docker context show 2>/dev/null)
+
+check_native_service() {
+    if systemctl is-active --quiet docker 2>/dev/null || service docker status 2>/dev/null | grep -q "running"; then
+        echo "Native Docker daemon: Running"
+    else
+        echo "Native Docker daemon: Stopped"
+    fi
+}
+
+case "$1" in
+    -c|--check)
+        if [[ "$CURRENT_CONTEXT" == "native-wsl" ]]; then
+            echo "Current context: Native WSL (native-wsl)"
+        elif [[ "$CURRENT_CONTEXT" == "desktop-wsl" ]]; then
+            echo "Current context: Docker Desktop (desktop-wsl)"
+        else
+            echo "Current context: $CURRENT_CONTEXT"
+        fi
+        ;;
+    -st|--status)
+        echo "=== Docker Status ==="
+        echo "Active Context : $CURRENT_CONTEXT"
+        check_native_service
+        ;;
+    -s|--switch)
+        if [[ "$CURRENT_CONTEXT" == "native-wsl" ]]; then
+            echo "Switching to Docker Desktop..."
+            docker context use desktop-wsl
+        else
+            echo "Switching to Native WSL..."
+            docker context use native-wsl
+        fi
+        ;;
+    -u|--up)
+        echo "Starting native Docker daemon..."
+        sudo service docker start 2>/dev/null || sudo systemctl start docker 2>/dev/null
+        ;;
+    -d|--down)
+        echo "Stopping native Docker daemon..."
+        sudo service docker stop 2>/dev/null || sudo systemctl stop docker 2>/dev/null
+        ;;
+    *)
+        echo "Usage: switch-docker [OPTIONS]"
+        echo "  -c, --check    Check current Docker context"
+        echo "  -st, --status    Check active context and native daemon service state"
+        echo "  -s, --switch   Toggle between Native WSL and Docker Desktop"
+        echo "  -u, --up       Start the native Docker daemon service"
+        echo "  -d, --down     Stop the native Docker daemon service"
+        ;;
+esac

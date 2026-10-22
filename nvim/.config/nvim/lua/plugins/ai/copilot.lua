@@ -2,7 +2,7 @@ return {
     {
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
-        enabled = not vim.g.vscode,
+        enabled = false and not vim.g.vscode,
 
         keys = {
             {
