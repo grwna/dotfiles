@@ -1,0 +1,2 @@
+- Do not execute any non-read-only git commands (git mv, commit, push. git fetch, diff etc. are okay).
+- 

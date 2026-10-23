@@ -1,8 +1,5 @@
 # STARTUP
-# eval $(ssh-agent -k)
-# eval $(ssh-agent -s)
-# eval $(keychain --eval --quiet grwna-rsa)
-eval $(keychain --eval --quiet grwna-rsa)
+# eval $(keychain --eval --quiet grwna-rsa) # uncomment this
 # Fastfetch on new terminal
 alias fastfetch='fastfetch --logo-color-1 "$(shuf -n 1 -e red green yellow blue magenta cyan)"'
 if [[ $- == *i* ]]; then

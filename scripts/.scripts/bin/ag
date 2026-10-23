@@ -3,6 +3,7 @@
 set -euo pipefail
 
 SOURCE_DIR="$HOME/.grwna-agents/skills"
+AGENTS_FILE="$HOME/.grwna-agents/AGENTS.md"
 
 # Define your default preset skills here
 PRESET_SKILLS=(
@@ -145,6 +146,13 @@ copy_skills() {
   esac
 
   echo "Successfully copied skills files to '$TARGET_DIR' for agent '$TARGET_AGENT'."
+
+  if [ -f "$AGENTS_FILE" ]; then
+    cp -L "$AGENTS_FILE" "./AGENTS.md"
+    echo "Copied AGENTS.md to project root."
+  else
+    echo "Warning: '$AGENTS_FILE' does not exist. Skipping."
+  fi
 }
 
 COMMAND="${1:-help}"
