@@ -1,0 +1,232 @@
+# Agent Skills Manifest
+# Maps skill folders to their upstream repositories for automated updates via `ag update`.
+# Set `local: true` for personal or custom skills that should not be synced from upstream.
+
+version: 1
+
+skills:
+  # ==========================================
+  # Superpowers Suite (obra/superpowers)
+  # ==========================================
+  brainstorming:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/brainstorming"
+    description: "Brainstorming and requirements shaping workflow"
+
+  dispatching-parallel-agents:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/dispatching-parallel-agents"
+    description: "Coordinate parallel subagents across isolated worktrees"
+
+  executing-plans:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/executing-plans"
+    description: "Executing implementation plans with verification gates"
+
+  finishing-a-development-branch:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/finishing-a-development-branch"
+    description: "Standardized cleanup and merging procedures"
+
+  receiving-code-review:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/receiving-code-review"
+    description: "Guidelines for responding to code reviews"
+
+  requesting-code-review:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/requesting-code-review"
+    description: "Audit code changes and request review"
+
+  subagent-driven-development:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/subagent-driven-development"
+    description: "Task execution via fresh subagents and two-stage review"
+
+  systematic-debugging:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/systematic-debugging"
+    description: "Root-cause tracing and defensive debugging"
+
+  test-driven-development:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/test-driven-development"
+    description: "TDD test-first discipline and verification"
+
+  using-git-worktrees:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/using-git-worktrees"
+    description: "Manage isolated workspaces with git worktrees"
+
+  using-superpowers:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/using-superpowers"
+    description: "Meta-skill establishing superpower rules and tools"
+
+  verification-before-completion:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/verification-before-completion"
+    description: "Evidence-based verification before marking tasks complete"
+
+  writing-plans:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/writing-plans"
+    description: "Drafting step-by-step implementation plans"
+
+  writing-skills:
+    repo: "obra/superpowers"
+    ref: "main"
+    path: "skills/writing-skills"
+    description: "Framework for designing new agent skills"
+
+  # ==========================================
+  # Vercel Agent Skills (vercel-labs/skills)
+  # ==========================================
+  find-skills:
+    repo: "vercel-labs/skills"
+    ref: "main"
+    path: "skills/find-skills"
+    description: "Discover and install skills from the open ecosystem"
+
+  # ==========================================
+  # Caveman Suite (JuliusBrussee/caveman)
+  # ==========================================
+  cavecrew:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/cavecrew"
+    description: "Delegation guide for token-efficient caveman subagents"
+
+  caveman:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman"
+    description: "Terse response compression preserving technical precision"
+
+  caveman-commit:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman-commit"
+    description: "Concise Conventional Commits under 50 characters"
+
+  caveman-compress:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman-compress"
+    description: "Compress memory files (CLAUDE.md) into caveman style"
+
+  caveman-help:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman-help"
+    description: "Quick reference cheat sheet for caveman commands"
+
+  caveman-review:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman-review"
+    description: "One-line PR comments focusing on location, problem, and fix"
+
+  caveman-stats:
+    repo: "JuliusBrussee/caveman"
+    ref: "main"
+    path: "skills/caveman-stats"
+    description: "Track cumulative token savings and session stats"
+
+  # ==========================================
+  # Ponytail Suite (DietrichGebert/ponytail)
+  # ==========================================
+  ponytail:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail"
+    description: "Lazy senior developer mindset enforcing simplicity and YAGNI"
+
+  ponytail-audit:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail-audit"
+    description: "Repository-wide audit hunting for over-engineering"
+
+  ponytail-debt:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail-debt"
+    description: "Track deliberate ponytail shortcut comments in a ledger"
+
+  ponytail-gain:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail-gain"
+    description: "Display measured benchmark scoreboard for ponytail impact"
+
+  ponytail-help:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail-help"
+    description: "Quick reference card for ponytail levels and commands"
+
+  ponytail-review:
+    repo: "DietrichGebert/ponytail"
+    ref: "main"
+    path: "skills/ponytail-review"
+    description: "Diff review focusing exclusively on cutting unnecessary bloat"
+
+  # ==========================================
+  # Language & Writing Skills
+  # ==========================================
+  indonesia-eyd-writing-skill:
+    repo: "fathurwithyou/indonesia-eyd-writing-skill"
+    ref: "main"
+    path: ""
+    description: "Indonesian language writing and editing following EYD V"
+
+  # ==========================================
+  # System Skills (OpenAI Codex)
+  # ==========================================
+  .system/imagegen:
+    repo: "openai/skills"
+    ref: "main"
+    path: "skills/.system/imagegen"
+    description: "Image generation helper skill"
+
+  .system/openai-docs:
+    repo: "openai/skills"
+    ref: "main"
+    path: "skills/.system/openai-docs"
+    description: "OpenAI developer documentation and reference skill"
+
+  .system/plugin-creator:
+    repo: "openai/skills"
+    ref: "main"
+    path: "skills/.system/plugin-creator"
+    description: "Plugin creator toolkit"
+
+  .system/skill-creator:
+    repo: "openai/skills"
+    ref: "main"
+    path: "skills/.system/skill-creator"
+    description: "Interactive guide for scaffolding new agent skills"
+
+  .system/skill-installer:
+    repo: "openai/skills"
+    ref: "main"
+    path: "skills/.system/skill-installer"
+    description: "Installer utility for curated and remote skills"
+
+  .system/review-agent:
+    local: true
+    description: "Defect-first code review agent instructions"

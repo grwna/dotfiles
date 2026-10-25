@@ -4,15 +4,20 @@ set -euo pipefail
 
 SOURCE_DIR="$HOME/.grwna-agents/skills"
 AGENTS_FILE="$HOME/.grwna-agents/AGENTS.md"
+UPDATE_SCRIPT="$HOME/.scripts/dependencies/scripts/update-skills.py"
 
 # Define your default preset skills here
 PRESET_SKILLS=(
-  "brainstorming"
-  "systematic-debugging"
-  "test-driven-development"
-  "verification-before-completion"
-  "writing-plans"
-  "executing-plans"
+    "caveman"
+    "cavecrew"
+    "caveman-compress"
+    "caveman-help"
+    "executing-plans"
+    "find-skills"
+    "ponytail"
+    "ponytail-audit"
+    "systematic-debugging"
+    "using-superpowers"
 )
 
 show_help() {
@@ -21,12 +26,19 @@ show_help() {
   echo "Commands:"
   echo "  cp [agent] [options]  Copy skills to the current project's agent configuration directory."
   echo "  list                  List all available skills in the source directory."
+  echo "  update [options]      Update skills from upstream sources via skills.manifest.yaml."
   echo "  help                  Show this help message."
   echo ""
   echo "Options for 'cp':"
   echo "  -p, --preset          Copy predefined default skills list."
   echo "  -s, --skills \"a b\"   Specify space-separated skills via argument."
   echo "  -a, --all             Copy all available skills."
+  echo ""
+  echo "Options for 'update':"
+  echo "  -a, --all             Update all skills defined in the manifest."
+  echo "  -d, --dry-run         Simulate update without modifying files on disk."
+  echo "  -l, --list            List all skills defined in the manifest."
+  echo "  [skill_name ...]      Update only specific named skills."
 }
 
 list_skills() {
@@ -155,6 +167,14 @@ copy_skills() {
   fi
 }
 
+update_skills() {
+  if [ ! -f "$UPDATE_SCRIPT" ]; then
+    echo "Error: Update script not found at '$UPDATE_SCRIPT'."
+    exit 1
+  fi
+  python3 "$UPDATE_SCRIPT" "$@"
+}
+
 COMMAND="${1:-help}"
 
 case "$COMMAND" in
@@ -164,6 +184,10 @@ case "$COMMAND" in
     ;;
   list)
     list_skills
+    ;;
+  update)
+    shift
+    update_skills "$@"
     ;;
   help)
     show_help
