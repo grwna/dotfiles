@@ -21,24 +21,38 @@ PRESET_SKILLS=(
 )
 
 show_help() {
-  echo "Usage: ag <command> [options]"
-  echo ""
-  echo "Commands:"
-  echo "  cp [agent] [options]  Copy skills to the current project's agent configuration directory."
-  echo "  list                  List all available skills in the source directory."
-  echo "  update [options]      Update skills from upstream sources via skills.manifest.yaml."
-  echo "  help                  Show this help message."
-  echo ""
-  echo "Options for 'cp':"
-  echo "  -p, --preset          Copy predefined default skills list."
-  echo "  -s, --skills \"a b\"   Specify space-separated skills via argument."
-  echo "  -a, --all             Copy all available skills."
-  echo ""
-  echo "Options for 'update':"
-  echo "  -a, --all             Update all skills defined in the manifest."
-  echo "  -d, --dry-run         Simulate update without modifying files on disk."
-  echo "  -l, --list            List all skills defined in the manifest."
-  echo "  [skill_name ...]      Update only specific named skills."
+  cat <<'EOF'
+Usage:
+  ag cp [agent] [-a | -p | -s "<skills>"]
+  ag update [-f] [-d] [-a | <skill>...]
+  ag update -l
+  ag list
+  ag help
+
+Commands:
+  cp      Copy skills into current project directory.
+  update  Fetch and sync skills from upstream repositories.
+  list    List all skills installed in ~/.grwna-agents/skills.
+  help    Display this help message.
+
+Options for 'cp' (modes are mutually exclusive):
+  -a, --all                 Copy all available skills.
+  -p, --preset              Copy predefined default skills list.
+  -s, --skills "<names>"    Copy specified space-separated skills.
+  * -a, -p, and -s cannot be combined together.
+
+Options for 'update':
+  -a, --all                 Update all skills defined in the manifest.
+  -f, --force               Force re-download even if lockfile matches upstream.
+  -d, --dry-run             Simulate update without modifying files on disk.
+  -l, --list                List skills defined in manifest with locked commits.
+  <skill>...                Update only specific named skills.
+
+  Compatibility:
+  * [-f] and [-d] can be combined together with any target (e.g. -af, -fd, -afd).
+  * [-a] and [<skill>...] are mutually exclusive targets (use -a OR skill names).
+  * [-l] is a standalone query mode (cannot be combined with update actions).
+EOF
 }
 
 list_skills() {
