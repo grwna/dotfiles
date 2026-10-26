@@ -10,6 +10,6 @@ return {
 	},
 	ft = { "Avante", "markdown" },
 	keys = {
-		{ "<leader>rm", "<cmd>RenderMarkdown buf_toggle<cr>", desc = "Toggle Markdown Render" },
+		{ "<leader>mr", "<cmd>RenderMarkdown buf_toggle<cr>", desc = "Toggle Markdown Render" },
 	},
 }

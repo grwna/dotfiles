@@ -9,7 +9,7 @@ wk.add({
     { "<leader>a", group = "+AI" },
 
     { "<leader>lz", "<cmd>Lazy<cr>", desc = "Open Lazy Menu" },
-    { "<leader>m", "<cmd>messages<cr>", desc = "Open System Messages" },
+    { "<leader>sm", "<cmd>messages<cr>", desc = "Open System Messages" },
 
     -- editing
     { "<leader>yy", "<cmd>%y<cr>", desc = "Yank whole file" },
@@ -39,4 +39,5 @@ wk.add({
 
     -- other
     {"<leader>wr", "<cmd>set wrap!<cr>", desc= "Toggle Line Wrap", mode = {"v", "n"}},
+    { "<leader>mf", "<cmd>'<,'>!mdtbl<cr>", desc = "Format selected markdown table", mode = "v" },
 })

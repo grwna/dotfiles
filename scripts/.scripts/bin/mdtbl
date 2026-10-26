@@ -1,0 +1,241 @@
+#!/bin/bash
+
+# mdtbl - format markdown tables for plain-text readability.
+#
+# Markdown renderers align cells regardless of source spacing, so raw tables
+# are hard to read in editors and terminals. mdtbl pads each column to the
+# width of its longest cell, with 1 space of padding to the left and 2 spaces
+# to the right of every cell.
+#
+# Modes:
+#   automatic (default)  Scan the input and format every table found.
+#   specific lines (-l)  Prompt for a start and end line; format that range.
+#
+# I/O:
+#   Reads the given file, or stdin when no file is passed (filter mode).
+#   Writes to stdout, or the file itself with -i. Filter mode formats the
+#   buffer text as shown (including unsaved edits); file modes operate on
+#   the file on disk. nvim example with a table selected:  :'<,'>!mdtbl
+#
+# Behavior:
+#   - Idempotent: re-formatting output produces identical output.
+#   - Separator rows keep alignment markers (:---, ---:, :-):) and their
+#     dashes are re-extended to the column width.
+#   - Escaped pipes (\|) inside cells are content, not column delimiters.
+#
+# Limitations:
+#   - Wide characters (CJK, emoji) count as width 1, so columns containing
+#     them are misaligned (gawk length() counts characters, not screen cells).
+#   - A line containing '|' immediately after a table with no blank line is
+#     treated as another row of that table.
+#   - Rows that disagree on cell count: the largest count wins, shorter rows
+#     are padded with empty cells.
+
+set -euo pipefail
+
+show_help() {
+  cat <<'EOF'
+Usage:
+  mdtbl [file]        Format every table in the input; print to stdout.
+  mdtbl -i file       Format every table; rewrite the file in place.
+  mdtbl -l file       Prompt for a line range; print that table to stdout.
+  mdtbl -i -l file    Prompt for a line range; rewrite the file in place.
+  mdtbl -h            Display this help message.
+
+Modes:
+  (default)    Automatic: search the input for markdown tables and format
+               all of them. Non-table lines pass through unchanged.
+  -l, --lines  Specific lines: prompt for the first and last line of a
+               table and format only that range. Requires a file argument.
+
+Options:
+  -i, --in-place  Rewrite the input file instead of printing to stdout.
+                  Requires a file argument.
+  -h, --help      Display this help message.
+
+Input:
+  file  Read from this file. If omitted, read from stdin (filter mode),
+        usable as an editor filter, e.g. in nvim with a table selected:
+          :'<,'>!mdtbl
+  Output goes to stdout unless -i is given.
+
+Compatibility:
+  * [-i] and [-l] can be combined together (e.g. mdtbl -i -l README.md).
+  * [-i] requires a file argument; it cannot be used in filter mode.
+  * [-l] requires a file argument; it cannot be used in filter mode.
+  * [-h] is standalone and cannot be combined with other options.
+EOF
+}
+
+die() {
+  echo "Error: $1" >&2
+  exit 1
+}
+
+IN_PLACE=0
+LINES_MODE=0
+FILE=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --in-place) IN_PLACE=1; shift ;;
+    --lines)    LINES_MODE=1; shift ;;
+    --help)     show_help; exit 0 ;;
+    -[ilh]*)
+      opts="${1#-}"
+      for ((k = 0; k < ${#opts}; k++)); do
+        case "${opts:k:1}" in
+          i) IN_PLACE=1 ;;
+          l) LINES_MODE=1 ;;
+          h) show_help; exit 0 ;;
+          *) die "unknown option '-${opts:k:1}'." ;;
+        esac
+      done
+      shift
+      ;;
+    -*) die "unknown option '$1'." ;;
+    *)
+      [[ -n "$FILE" ]] && die "multiple file arguments given."
+      FILE="$1"
+      shift
+      ;;
+  esac
+done
+
+[[ $IN_PLACE -eq 1 && -z "$FILE" ]] && die "-i requires a file argument (cannot be used in filter mode)."
+[[ $LINES_MODE -eq 1 && -z "$FILE" ]] && die "-l requires a file argument (cannot be used in filter mode)."
+[[ -n "$FILE" && ! -f "$FILE" ]] && die "no such file: $FILE"
+
+LSTART=""
+LEND=""
+if [[ $LINES_MODE -eq 1 ]]; then
+  read -rp "Start line: " LSTART
+  read -rp "End line: " LEND
+  [[ "$LSTART" =~ ^[1-9][0-9]*$ ]] || die "start line must be a positive integer."
+  [[ "$LEND" =~ ^[1-9][0-9]*$ ]] || die "end line must be a positive integer."
+  (( LSTART <= LEND )) || die "start line must not be greater than end line."
+  total=$(awk 'END { print NR }' "$FILE")
+  (( LEND <= total )) || die "end line $LEND exceeds file length ($total lines)."
+fi
+
+run_awk() {
+  awk -v mode="$([[ $LINES_MODE -eq 1 ]] && echo lines || echo auto)" \
+      -v lstart="$LSTART" -v lend="$LEND" '
+    function pad(s, w,   out) {
+      out = s
+      while (length(out) < w) out = out " "
+      return out
+    }
+
+    # Split a table row into trimmed cells; outer pipes stripped,
+    # escaped pipes (\\|) protected via a placeholder.
+    function split_line(line, out,   s, n, i) {
+      s = line
+      gsub(/\\\|/, "\001", s)
+      sub(/^[ \t]*\|[ \t]*/, "", s)
+      sub(/[ \t]*\|[ \t]*$/, "", s)
+      n = split(s, out, /\|/)
+      for (i = 1; i <= n; i++) {
+        sub(/^[ \t]+/, "", out[i])
+        sub(/[ \t]+$/, "", out[i])
+      }
+      return n
+    }
+
+    function is_sep_cell(c,   t) {
+      t = c
+      sub(/^:/, "", t)
+      sub(/:$/, "", t)
+      return (t ~ /^-+$/ && length(t) >= 3)
+    }
+
+    function is_sep_line(line,   n, parts, i) {
+      n = split_line(line, parts)
+      if (n == 0) return 0
+      for (i = 1; i <= n; i++)
+        if (!is_sep_cell(parts[i])) return 0
+      return 1
+    }
+
+    function format_table(s, e,   i, j, k, r, n, cells, ncols, line,
+                          c, lead, trail, dashes, sep) {
+      ncols = 0
+      for (i = s; i <= e; i++) {
+        r = i - s + 1
+        n = split_line(lines[i], cells)
+        rowlen[r] = n
+        for (j = 1; j <= n; j++) {
+          gsub(/\001/, "\\|", cells[j])
+          cell[r, j] = cells[j]
+          if (length(cells[j]) > maxw[j]) maxw[j] = length(cells[j])
+        }
+        if (n > ncols) ncols = n
+      }
+      for (i = s; i <= e; i++) {
+        r = i - s + 1
+        sep = (rowlen[r] > 0)
+        for (j = 1; j <= rowlen[r]; j++)
+          if (!is_sep_cell(cell[r, j])) { sep = 0; break }
+        line = "|"
+        for (j = 1; j <= ncols; j++) {
+          c = cell[r, j]
+          if (sep) {
+            lead = (substr(c, 1, 1) == ":") ? ":" : ""
+            trail = (substr(c, length(c), 1) == ":") ? ":" : ""
+            dashes = maxw[j] - length(lead) - length(trail)
+            if (dashes < 1) dashes = 1
+            c = lead
+            for (k = 0; k < dashes; k++) c = c "-"
+            c = c trail
+          }
+          line = line " " pad(c, maxw[j]) "  |"
+        }
+        out[i] = line
+      }
+      delete rowlen
+      delete cell
+      delete maxw
+    }
+
+    { lines[NR] = $0; out[NR] = $0 }
+
+    END {
+      if (mode == "lines") {
+        format_table(lstart + 0, lend + 0)
+      } else {
+        i = 1
+        while (i <= NR) {
+          if (i > 1 && is_sep_line(lines[i]) && lines[i - 1] ~ /\|/) {
+            end = i
+            j = i + 1
+            while (j <= NR && lines[j] ~ /\|/) {
+              # A separator here means a new table started at j-1; leave
+              # its header and separator for the next detection pass.
+              if (j > i + 1 && is_sep_line(lines[j])) { end = j - 2; break }
+              end = j
+              j++
+            }
+            format_table(i - 1, end)
+            i = end + 1
+          } else {
+            i++
+          }
+        }
+      }
+      for (i = 1; i <= NR; i++) print out[i]
+    }
+  '
+}
+
+if [[ $IN_PLACE -eq 1 ]]; then
+  tmp=$(mktemp)
+  trap 'rm -f "$tmp"' EXIT
+  run_awk < "$FILE" > "$tmp"
+  cat "$tmp" > "$FILE"
+else
+  if [[ -n "$FILE" ]]; then
+    run_awk < "$FILE"
+  else
+    run_awk
+  fi
+fi
