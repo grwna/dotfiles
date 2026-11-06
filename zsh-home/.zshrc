@@ -180,7 +180,7 @@ alias py='python'
 alias dk='docker'
 # alias egy='antigravity .'
 alias oc='opencode'
-alias opencode='RIPGREP_CONFIG_PATH=.rgrc opencode'
+# alias opencode='RIPGREP_CONFIG_PATH=.rgrc opencode'
 
 
 # dev work

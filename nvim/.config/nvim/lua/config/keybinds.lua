@@ -39,5 +39,5 @@ wk.add({
 
     -- other
     {"<leader>wr", "<cmd>set wrap!<cr>", desc= "Toggle Line Wrap", mode = {"v", "n"}},
-    { "<leader>mf", "<cmd>'<,'>!mdtbl<cr>", desc = "Format selected markdown table", mode = "v" },
+    { "<leader>mf", ":!mdtbl<cr>", desc = "Format selected markdown table", mode = "v" , silent = true}
 })

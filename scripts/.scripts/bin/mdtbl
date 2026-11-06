@@ -164,10 +164,13 @@ run_awk() {
         r = i - s + 1
         n = split_line(lines[i], cells)
         rowlen[r] = n
+        sep = (n > 0)
+        for (j = 1; j <= n; j++)
+          if (!is_sep_cell(cells[j])) { sep = 0; break }
         for (j = 1; j <= n; j++) {
           gsub(/\001/, "\\|", cells[j])
           cell[r, j] = cells[j]
-          if (length(cells[j]) > maxw[j]) maxw[j] = length(cells[j])
+          if (!sep && length(cells[j]) > maxw[j]) maxw[j] = length(cells[j])
         }
         if (n > ncols) ncols = n
       }
