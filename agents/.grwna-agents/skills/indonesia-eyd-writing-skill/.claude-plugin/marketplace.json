@@ -1,0 +1,33 @@
+{
+  "name": "indonesia-eyd",
+  "owner": {
+    "name": "Fathur",
+    "email": ""
+  },
+  "metadata": {
+    "description": "Plugin untuk menulis dan menyunting teks bahasa Indonesia sesuai konteks, dengan EYD V sebagai dasar ejaan."
+  },
+  "plugins": [
+    {
+      "name": "indonesia-eyd-writing-skill",
+      "source": "./",
+      "description": "Menulis dan menyunting teks bahasa Indonesia sesuai konteks, dengan EYD V sebagai dasar ejaan.",
+      "version": "2.1.1",
+      "author": {
+        "name": "Fathur"
+      },
+      "homepage": "https://github.com/fathurwithyou/indonesia-eyd-writing-skill",
+      "repository": "https://github.com/fathurwithyou/indonesia-eyd-writing-skill",
+      "license": "MIT",
+      "keywords": [
+        "bahasa-indonesia",
+        "eyd",
+        "penulisan",
+        "akademik",
+        "kreatif",
+        "penyuntingan"
+      ],
+      "category": "writing"
+    }
+  ]
+}

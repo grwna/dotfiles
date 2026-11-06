@@ -1,0 +1,4 @@
+interface:
+  display_name: "Penulisan Bahasa Indonesia"
+  short_description: "Buat dan sunting tulisan alami sesuai EYD V"
+  default_prompt: "Gunakan $indonesia-eyd-writing-skill untuk menulis atau menyunting. Untuk naskah panjang dengan bagian mandiri, pakai subagen."
