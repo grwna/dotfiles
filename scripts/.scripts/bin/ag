@@ -174,8 +174,12 @@ copy_skills() {
   echo "Successfully copied skills files to '$TARGET_DIR' for agent '$TARGET_AGENT'."
 
   if [ -f "$AGENTS_FILE" ]; then
-    cp -L "$AGENTS_FILE" "./AGENTS.md"
-    echo "Copied AGENTS.md to project root."
+    if [ -f "./AGENTS.md" ]; then
+      echo "AGENTS.md already exists in project root. Skipping."
+    else
+      cp -L "$AGENTS_FILE" "./AGENTS.md"
+      echo "Copied AGENTS.md to project root."
+    fi
   else
     echo "Warning: '$AGENTS_FILE' does not exist. Skipping."
   fi

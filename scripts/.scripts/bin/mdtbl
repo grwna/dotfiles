@@ -102,6 +102,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+[[ -z "$FILE" && $IN_PLACE -eq 0 && -t 0 ]] && { show_help >&2; exit 1; }
 [[ $IN_PLACE -eq 1 && -z "$FILE" ]] && die "-i requires a file argument (cannot be used in filter mode)."
 [[ $LINES_MODE -eq 1 && -z "$FILE" ]] && die "-l requires a file argument (cannot be used in filter mode)."
 [[ -n "$FILE" && ! -f "$FILE" ]] && die "no such file: $FILE"
